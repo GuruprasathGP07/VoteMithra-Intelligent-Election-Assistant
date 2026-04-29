@@ -1,0 +1,98 @@
+export const featureCards = [
+  { 
+    key: "day_simulator",
+    title: "Election Day Simulator", 
+    icon: "how_to_vote", 
+    path: "/simulator", 
+    badgeKey: "hero_badge",
+    badge: "Hero Feature", 
+    badgeColor: "bg-saffron text-blue-main" 
+  },
+  { 
+    key: "evm_simulator",
+    title: "EVM Simulator", 
+    icon: "touch_app", 
+    path: "/evm" 
+  },
+  { 
+    key: "fake_news",
+    title: "Fake News Detector", 
+    icon: "fact_check", 
+    path: "/fakenews", 
+    badgeKey: "ai_badge",
+    badge: "AI Powered", 
+    badgeColor: "bg-blue-pale text-blue-main" 
+  },
+  { 
+    key: "protection",
+    title: "Vote Protection", 
+    icon: "security", 
+    path: "/protection" 
+  },
+  { 
+    key: "ai_coach",
+    title: "AI Voter Coach", 
+    icon: "smart_toy", 
+    action: "openChat", 
+    badgeKey: "gemini_badge",
+    badge: "Gemini AI", 
+    badgeColor: "bg-blue-pale text-blue-main" 
+  },
+  { 
+    key: "eligibility",
+    title: "Eligibility Checker", 
+    icon: "person_check", 
+    path: "/eligibility" 
+  },
+  { 
+    key: "timeline",
+    title: "Election Timeline", 
+    icon: "timeline", 
+    path: "/timeline" 
+  },
+  { 
+    key: "quiz",
+    title: "Quiz & Certificate", 
+    icon: "military_tech", 
+    path: "/quiz" 
+  },
+  { 
+    key: "nomination",
+    title: "Nomination Guide", 
+    icon: "assignment", 
+    path: "/nomination" 
+  },
+  { 
+    key: "guide",
+    title: "Voter Guide", 
+    icon: "menu_book", 
+    path: "/guide" 
+  },
+  { 
+    key: "locator",
+    title: "Poll Booth Locator", 
+    icon: "location_on", 
+    path: "/locator", 
+    badgeKey: "maps_badge",
+    badge: "Google Maps", 
+    badgeColor: "bg-[#DCFCE7] text-green-main" 
+  },
+  { 
+    key: "candidate_kyc",
+    title: "Know Your Candidate", 
+    icon: "person_search", 
+    path: "/candidates" 
+  },
+];
+
+export const journeyStops = [
+  { id: 1, key: "eligible", label: "Am I Eligible?", icon: "how_to_reg", path: "/eligibility", top: "37%", left: "5%" },
+  { id: 2, key: "registered", label: "Get Registered", icon: "app_registration", url: "https://voters.eci.gov.in", top: "37%", left: "20%" },
+  { id: 3, key: "law", label: "Know the Law", icon: "gavel", path: "/protection", top: "50%", left: "33%" },
+  { id: 4, key: "practice", label: "Practice Voting", icon: "how_to_vote", path: "/simulator", top: "75%", left: "45%" },
+  { id: 5, key: "evm", label: "Use the EVM", icon: "touch_app", path: "/evm", top: "65%", left: "58%" },
+  { id: 6, key: "fake_news", label: "Spot Fake News", icon: "fact_check", path: "/fakenews", top: "45%", left: "68%" },
+  { id: 7, key: "test", label: "Test Yourself", icon: "military_tech", path: "/quiz", top: "25%", left: "76%" },
+  { id: 8, key: "booth", label: "Find My Booth", icon: "location_on", path: "/locator", top: "25%", left: "88%" },
+  { id: 9, key: "emergency", label: "Emergency Help", icon: "emergency", path: "/locator", top: "45%", left: "95%" },
+];

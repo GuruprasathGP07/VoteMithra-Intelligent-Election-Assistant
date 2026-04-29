@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --blue: #0B3A75;
+  --blue-light: #1553A8;
+  --blue-pale: #E8F0FD;
+  --saffron: #F59E0B;
+  --saffron-dark: #D97706;
+  --white: #FFFFFF;
+  --bg: #F9FAFB;
+  --ink: #1A1A2E;
+  --muted: #6B7280;
+  --border: #E5E7EB;
+  --green: #16A34A;
+  --red: #DC2626;
+  --amber: #D97706;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --shadow: 0 4px 16px rgba(11,58,117,0.10);
+}
+
+@layer base {
+  body {
+    @apply bg-bg-main text-ink font-dm-sans antialiased;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-playfair;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-saffron text-blue-main font-semibold rounded-radius-sm px-6 py-3 hover:bg-saffron-dark transition-colors inline-flex items-center justify-center gap-2;
+  }
+  .btn-secondary {
+    @apply bg-transparent border-2 border-blue-main text-blue-main font-semibold rounded-radius-sm px-6 py-3 hover:bg-blue-pale transition-colors inline-flex items-center justify-center gap-2;
+  }
+  .card {
+    @apply bg-white border border-border-gray rounded-radius shadow-main transition-transform hover:-translate-y-1 hover:border-b-4 hover:border-b-saffron p-6;
+  }
+  .input-control {
+    @apply border-[1.5px] border-border-gray rounded-radius-sm px-3 py-2.5 focus:outline-none focus:border-blue-main transition-colors w-full;
+  }
+  .progress-bar {
+    @apply bg-border-gray h-1.5 rounded-full relative overflow-hidden;
+  }
+  .progress-fill {
+    @apply bg-saffron h-full transition-all duration-300;
+  }
+}

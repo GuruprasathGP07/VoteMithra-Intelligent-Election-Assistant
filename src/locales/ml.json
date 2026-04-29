@@ -1,0 +1,104 @@
+{
+  "nav": {
+    "home": "ഹോം",
+    "simulator": "സിമുലേറ്റർ",
+    "rights": "നിയമങ്ങളും അവകാശങ്ങളും",
+    "quiz": "ക്വിസ്",
+    "locator": "ബൂത്ത് ലൊക്കേറ്റർ",
+    "faq": "ചോദ്യങ്ങൾ",
+    "detector": "വ്യാജ വാർത്താ ഡിറ്റക്ടർ",
+    "demo": "ഡെമോ മോഡ്",
+    "emergency": "അടിയന്തരം: 1950"
+  },
+  "hero": {
+    "title": "നിങ്ങളുടെ വോട്ട്, നിങ്ങളുടെ ശബ്ദം",
+    "subtitle": "26 കോടി കന്നി വോട്ടർമാർ. എന്തുചെയ്യണമെന്ന് ആർക്കും അറിയില്ല. നമുക്കത് ശരിയാക്കാം.",
+    "description": "തിരഞ്ഞെടുപ്പുകളെ മനസ്സിലാക്കുക, തെറ്റായ വിവരങ്ങൾ ഒഴിവാക്കുക, പൂർണ്ണ ആത്മവിശ്വാസത്തോടെ വോട്ട് ചെയ്യുക.",
+    "button_start": "എന്റെ വോട്ടർ യാത്ര ആരംഭിക്കുക",
+    "button_explore": "ഫീച്ചറുകൾ പര്യവേക്ഷണം ചെയ്യുക",
+    "scroll": "പര്യവേക്ഷണം ചെയ്യാൻ സ്ക്രോൾ ചെയ്യുക"
+  },
+  "journey": {
+    "title": "ആശയക്കുഴപ്പത്തിൽ നിന്ന് ആത്മവിശ്വാസമുള്ള വോട്ടറിലേയ്ക്കുള്ള നിങ്ങളുടെ പാത",
+    "subtitle": "ആരംഭിക്കുന്നതിന് നിങ്ങളുടെ യാത്രയിലെ ഏതെങ്കിലും സ്റ്റോപ്പിൽ ക്ലിക്ക് ചെയ്യുക"
+  },
+  "awareness": {
+    "title": "എല്ലാ ഫീച്ചറുകളും ഒറ്റനോട്ടത്തിൽ",
+    "description": "വോട്ടിംഗ് അവകാശങ്ങൾ, തിരഞ്ഞെടുപ്പ് പ്രക്രിയ, പോളിംഗ് ബൂത്ത് മാർഗ്ഗനിർദ്ദേശങ്ങൾ, ജനാധിപത്യത്തിലെ ഉത്തരവാദിത്തമുള്ള പങ്കാളിത്തം എന്നിവയെക്കുറിച്ച് അറിയുക."
+  },
+  "complaint": {
+    "title": "പരാതി സമർപ്പിക്കുക",
+    "description": "തിരഞ്ഞെടുപ്പുമായി ബന്ധപ്പെട്ട പ്രശ്നങ്ങൾ സുരക്ഷിതമായി റിപ്പോർട്ട് ചെയ്യുകയും പരാതിയുടെ നില ഓൺലൈനായി ട്രാക്ക് ചെയ്യുകയും ചെയ്യുക."
+  },
+  "map": {
+    "title": "പോളിംഗ് ബൂത്ത് കണ്ടെത്തുക",
+    "description": "അടുത്തുള്ള പോളിംഗ് ബൂത്തുകൾ കണ്ടെത്തുകയും മാപ്പുകൾ ഉപയോഗിച്ച് വഴി സഹായം നേടുകയും ചെയ്യുക.",
+    "search_placeholder": "6 അക്ക പിൻ നൽകുക",
+    "use_location": "എന്റെ ലൊക്കേഷൻ ഉപയോഗിക്കുക",
+    "official_portal": "ഔദ്യോഗിക ECI പോർട്ടൽ",
+    "warning": "തിരഞ്ഞെടുപ്പ് ദിവസത്തിന് മുമ്പ് ലഭിക്കുന്ന നിങ്ങളുടെ ഔദ്യോഗിക വോട്ടർ സ്ലിപ്പിൽ എപ്പോഴും നിങ്ങളുടെ പോളിംഗ് സ്റ്റേഷൻ സ്ഥിരീകരിക്കുക."
+  },
+  "chatbot": {
+    "title": "AI വോട്ടർ കോച്ച്",
+    "subtitle": "ഗൂഗിൾ ജെമിനി നൽകുന്നത്",
+    "placeholder": "ഒരു ചോദ്യം ചോദിക്കൂ...",
+    "welcome": "നമസ്തേ! ഞാൻ നിങ്ങളുടെ AI വോട്ടർ കോച്ചാണ്. വോട്ടിംഗ്, തിരഞ്ഞെടുപ്പ്, നിങ്ങളുടെ അവകാശങ്ങൾ അല്ലെങ്കിൽ EVM-കൾ എങ്ങനെ പ്രവർത്തിക്കുന്നു എന്നതിനെക്കുറിച്ച് എന്നോട് എന്തും ചോദിക്കൂ. ഇന്ന് എനിക്ക് നിങ്ങളെ എങ്ങനെ സഹായിക്കാനാകും?"
+  },
+  "footer": {
+    "text": "ഡിജിറ്റൽ തിരഞ്ഞെടുപ്പ് ബോധവൽക്കരണ പോർട്ടൽ",
+    "emergency": "അടിയന്തരാവശ്യം: 1950 വിളിക്കുക (വോട്ടർ ഹെൽപ്പ് ലൈൻ) | ലംഘനങ്ങൾ റിപ്പോർട്ട് ചെയ്യുക: cVIGIL ആപ്പ് | ബൂത്ത് അക്രമം: 100 വിളിക്കുക"
+  },
+  "rights": {
+    "shield": "നിങ്ങളുടെ കവചം",
+    "title": "വോട്ടർ നിയമങ്ങളും അവകാശങ്ങളും",
+    "description": "ഭാരതത്തിന്റെ ഭരണഘടന നിങ്ങളെ ശാക്തീകരിക്കുന്നു. വഞ്ചന, നിർബന്ധം, പോളിംഗ് ബൂത്തിനകത്തെ നിങ്ങളുടെ അവകാശങ്ങൾ എന്നിവയ്ക്കെതിരെയുള്ള നിങ്ങളുടെ നിയമപരമായ സംരക്ഷണങ്ങൾ അറിയുക.",
+    "take_action": "നടപടിയെടുക്കുക",
+    "mcc_title": "പെരുമാറ്റച്ചട്ട ലംഘനം കണ്ടോ?",
+    "mcc_desc": "മദ്യം/പണം വിതരണം, വെറുപ്പുളവാക്കുന്ന പ്രസംഗങ്ങൾ, അല്ലെങ്കിൽ ബൂത്തിന് 100 മീറ്ററിനുള്ളിലെ പ്രചാരണം എന്നിവ പെരുമാറ്റച്ചട്ട (MCC) ലംഘനങ്ങളാണ്.",
+    "cvigil_btn": "cVIGIL ആപ്പ് ഡൗൺലോഡ് ചെയ്യുക"
+  },
+  "features": {
+    "day_simulator": "Election Day Simulator",
+    "evm_simulator": "EVM Simulator",
+    "fake_news": "Fake News Detector",
+    "protection": "Vote Protection",
+    "ai_coach": "AI Voter Coach",
+    "eligibility": "Eligibility Checker",
+    "timeline": "Election Timeline",
+    "quiz": "Quiz & Certificate",
+    "nomination": "Nomination Guide",
+    "locator": "Poll Booth Locator",
+    "candidate_kyc": "നിങ്ങളുടെ സ്ഥാനാർത്ഥിയെ അറിയുക",
+    "hero_badge": "Hero Feature",
+    "ai_badge": "AI Powered",
+    "gemini_badge": "Gemini AI",
+    "maps_badge": "Google Maps"
+  },
+  "journey_stops": {
+    "eligible": "Am I Eligible?",
+    "registered": "Get Registered",
+    "law": "Know the Law",
+    "practice": "Practice Voting",
+    "evm": "Use the EVM",
+    "fake_news": "Spot Fake News",
+    "test": "Test Yourself",
+    "booth": "Find My Booth",
+    "emergency": "Emergency Help"
+  },
+  "timeline": {
+    "title": "Election Timeline",
+    "subtitle": "The six key phases of every Indian election.",
+    "reg_title": "Voter Registration",
+    "reg_desc": "Electoral rolls are updated. New voters register.",
+    "nom_title": "Nomination Filing",
+    "nom_desc": "Candidates submit nomination forms.",
+    "cam_title": "Campaign Period",
+    "cam_desc": "Parties and candidates campaign.",
+    "sil_title": "Silence Period",
+    "sil_desc": "All campaigning must stop 48 hours before polling.",
+    "pol_title": "Polling Day",
+    "pol_desc": "Booths open 7am to 6pm.",
+    "res_title": "Counting & Result",
+    "res_desc": "Votes are counted under ECI supervision."
+  }
+}

@@ -1,0 +1,246 @@
+{
+  "nav": {
+    "home": "Home",
+    "simulator": "Simulator",
+    "rights": "Laws & Rights",
+    "quiz": "Quiz",
+    "locator": "Booth Locator",
+    "faq": "FAQ",
+    "detector": "Fake News Detector",
+    "guide": "Voter Guide",
+    "demo": "Demo Mode",
+    "emergency": "Emergency: 1950"
+  },
+  "hero": {
+    "title": "Your Vote, Your Voice",
+    "subtitle": "26 crore first-time voters. One doesn't know what to do. Let's fix that.",
+    "description": "Understand elections, avoid misinformation, and vote with full confidence.",
+    "button_start": "Start My Voter Journey",
+    "button_explore": "Explore Features",
+    "scroll": "scroll to explore"
+  },
+  "home": {
+    "eligibility_title": "Are you eligible to vote?",
+    "eligibility_subtitle": "Quickly check if you meet all requirements for the upcoming elections.",
+    "eligibility_btn": "Check Eligibility",
+    "ai_coach_title": "Have more questions?",
+    "ai_coach_subtitle": "Ask our AI Voter Coach anything about the election process.",
+    "ai_coach_btn": "Ask AI Coach"
+  },
+  "journey": {
+    "title": "Your Path from Confused to Confident Voter",
+    "subtitle": "Click any stop on your journey to begin"
+  },
+  "awareness": {
+    "title": "All Features at a Glance",
+    "description": "Learn about voting rights, election process, polling booth guidance, and responsible participation in democracy."
+  },
+  "complaint": {
+    "title": "Submit Complaint",
+    "description": "Report election-related issues safely and track complaint status online."
+  },
+  "map": {
+    "title": "Find Polling Booth",
+    "description": "Locate nearby polling booths and get route assistance using maps.",
+    "search_placeholder": "Enter 6-digit PIN",
+    "use_location": "Use My Location",
+    "official_portal": "Official ECI Portal",
+    "warning": "Always confirm your polling station on your official Voter Slip received before election day."
+  },
+  "chatbot": {
+    "title": "AI Voter Coach",
+    "subtitle": "Powered by Google Gemini",
+    "placeholder": "Ask a question...",
+    "welcome": "Namaste! I am your AI Voter Coach, powered by Google Gemini. Ask me anything about voting, elections, your rights, or how EVMs work. How can I help you today?",
+    "error_message": "Sorry, I am facing technical issues connecting to the AI. Please try again in a moment.",
+    "chip_register": "How do I register?",
+    "chip_nota": "What is NOTA?",
+    "chip_evm": "Is my EVM safe?",
+    "chip_cvigil": "What can cVIGIL do?"
+  },
+  "footer": {
+    "text": "Digital Election Awareness Portal",
+    "emergency": "Emergency: Call 1950 (Voter Helpline) | Report violations: cVIGIL App | Booth violence: Call 100"
+  },
+  "rights": {
+    "shield": "Your Shield",
+    "title": "Voter Laws & Rights",
+    "description": "The Constitution of India empowers you. Know your legal protections against fraud, coercion, and your rights inside the polling booth.",
+    "take_action": "Take Action",
+    "mcc_title": "Witness a Code of Conduct Violation?",
+    "mcc_desc": "Model Code of Conduct (MCC) violations include distribution of liquor/money, hate speech, or campaigning within 100 meters of a booth.",
+    "cvigil_btn": "Download cVIGIL App"
+  },
+  "features": {
+    "day_simulator": "Election Day Simulator",
+    "evm_simulator": "EVM Simulator",
+    "fake_news": "Fake News Detector",
+    "protection": "Vote Protection",
+    "ai_coach": "AI Voter Coach",
+    "eligibility": "Eligibility Checker",
+    "timeline": "Election Timeline",
+    "quiz": "Quiz & Certificate",
+    "nomination": "Nomination Guide",
+    "guide": "Voter Guide",
+    "locator": "Poll Booth Locator",
+    "candidate_kyc": "Know Your Candidate",
+    "hero_badge": "Hero Feature",
+    "ai_badge": "AI Powered",
+    "gemini_badge": "Gemini AI",
+    "maps_badge": "Google Maps"
+  },
+  "journey_stops": {
+    "eligible": "Am I Eligible?",
+    "registered": "Get Registered",
+    "law": "Know the Law",
+    "practice": "Practice Voting",
+    "evm": "Use the EVM",
+    "fake_news": "Spot Fake News",
+    "test": "Test Yourself",
+    "booth": "Find My Booth",
+    "emergency": "Emergency Help"
+  },
+  "timeline": {
+    "title": "Election Timeline",
+    "subtitle": "The six key phases of every Indian election.",
+    "reg_title": "Voter Registration",
+    "reg_desc": "Electoral rolls are updated. New voters register.",
+    "nom_title": "Nomination Filing",
+    "nom_desc": "Candidates submit nomination forms.",
+    "cam_title": "Campaign Period",
+    "cam_desc": "Parties and candidates campaign.",
+    "sil_title": "Silence Period",
+    "sil_desc": "All campaigning must stop 48 hours before polling.",
+    "pol_title": "Polling Day",
+    "pol_desc": "Booths open 7am to 6pm.",
+    "res_title": "Counting & Result",
+    "res_desc": "Votes are counted under ECI supervision."
+  },
+  "faq": {
+    "section_title": "Common Questions",
+    "section_subtitle": "Everything you need to know about the electoral process.",
+    "page_title": "Frequently Asked Questions",
+    "see_all": "See all FAQs"
+  },
+  "faq_items": {
+    "min_age": {
+      "q": "What is the minimum age to vote in India?",
+      "a": "You must be 18 years of age on the qualifying date (January 1st) to be eligible to vote."
+    },
+    "docs": {
+      "q": "What documents can I use at the polling booth?",
+      "a": "You can use any of these 12 ECI-accepted documents: Voter ID (EPIC), Aadhaar card, passport, driving licence, PAN card, MNREGA job card, etc."
+    },
+    "missing_name": {
+      "q": "What if my name is missing from the electoral roll?",
+      "a": "Visit voters.eci.gov.in or apply online. You can also call 1950 for guidance. Names can be added through Form 6."
+    },
+    "nota": {
+      "q": "What is NOTA and how does it work?",
+      "a": "NOTA (None of the Above) lets you reject all candidates. It is counted separately and does not benefit any party."
+    },
+    "evm_safe": {
+      "q": "Is my EVM safe?",
+      "a": "Yes. EVMs are standalone machines with no wired or wireless connectivity. They cannot be remotely accessed."
+    },
+    "booth_locator": {
+      "q": "How do I find my polling booth?",
+      "a": "Use the Poll Booth Locator, visit voters.eci.gov.in, or call 1950. Search by name, EPIC number, or PIN code."
+    },
+    "moved_city": {
+      "q": "Can I vote if I have moved to a different city?",
+      "a": "You must vote where you are registered. If moved, update your registration using Form 8A at voters.eci.gov.in."
+    },
+    "mcc": {
+      "q": "What is the Model Code of Conduct?",
+      "a": "The MCC governs the conduct of parties and candidates from election announcement until results. Report violations via cVIGIL."
+    },
+    "nri_vote": {
+      "q": "Can NRIs vote in Indian elections?",
+      "a": "Yes. Registered overseas voters can vote in person at their constituency polling booth."
+    },
+    "bribery": {
+      "q": "What happens if someone offers me money to vote?",
+      "a": "Accepting money is a criminal offence. Report immediately to 1950 or via cVIGIL app."
+    },
+    "denied_entry": {
+      "q": "What are my rights if I am denied entry to the booth?",
+      "a": "If your name is on the roll, you cannot be denied. Ask for the Presiding Officer and call 1950."
+    },
+    "booth_agent": {
+      "q": "What does a booth agent do?",
+      "a": "Booth agents observe the process to ensure fairness. They can raise objections but cannot influence voters."
+    }
+  },
+  "protection": {
+    "types_title": "Election Classifications",
+    "types_subtitle": "Understanding the different democratic layers of India.",
+    "direct": "Direct Election",
+    "indirect": "Indirect Election",
+    "ls_title": "Lok Sabha",
+    "ls_desc": "The Lower House of Parliament. Citizens directly elect Members of Parliament (MPs) every 5 years.",
+    "rs_title": "Rajya Sabha",
+    "rs_desc": "The Upper House. Members are indirectly elected by State Assemblies for 6-year terms.",
+    "vs_title": "Vidhan Sabha",
+    "vs_desc": "State Legislative Assembly. Citizens directly elect MLAs to represent their state.",
+    "lb_title": "Local Bodies",
+    "lb_desc": "Elections for Panchayats and Municipalities that govern your immediate neighborhood.",
+    "laws_title": "Constitutional Pillars",
+    "laws_subtitle": "The statutes that keep our democracy fair and transparent.",
+    "rp1950_title": "RP Act 1950",
+    "rp1950_desc": "Governs the registration of voters, allocation of seats, and delimitation of constituencies.",
+    "rp1951_title": "RP Act 1951",
+    "rp1951_desc": "The core law detailing the conduct of elections, qualifications of candidates, and corrupt practices.",
+    "rules1961_title": "Conduct Rules 1961",
+    "rules1961_desc": "Specifies the technical procedures for voting, including the use of EVMs and VVPATs.",
+    "rights_subtitle": "Every voter in India is shielded by these fundamental protections.",
+    "secret_ballot_title": "Secret Ballot",
+    "secret_ballot_desc": "Your vote is your secret. No one can legally force you to disclose who you voted for.",
+    "rti_title": "Right to Know",
+    "rti_desc": "You have the right to know your candidate's criminal records, financial assets, and education.",
+    "tendered_title": "Tendered Vote",
+    "tendered_desc": "If someone else has already voted in your name, you can still cast your vote via a physical ballot paper.",
+    "nota_title": "NOTA Option",
+    "nota_desc": "The right to reject all candidates in your constituency if you find none of them suitable."
+  },
+  "guide": {
+    "title": "First-Time Voter Guide",
+    "subtitle": "Your roadmap to obtaining a Voter ID and becoming a part of the world's largest democracy.",
+    "voter_id_q": "What is a Voter ID?",
+    "voter_id_a": "The Election Commission of India (ECI) issues a Voter ID (EPIC Card) which allows Indian citizens to vote in elections.",
+    "eligibility_title": "Eligibility Criteria",
+    "eligibility_subtitle": "Ensure you meet these requirements before applying.",
+    "e_citizen": "Indian Citizen",
+    "e_age": "18 Years or older",
+    "e_residence": "Permanent Address",
+    "e_unregistered": "Not registered elsewhere",
+    "docs_title": "Documents Required",
+    "docs_identity": "Identity Proof",
+    "docs_address": "Address Proof",
+    "docs_age": "Age Proof",
+    "docs_photo": "Passport-size Photo",
+    "docs_options_id": "Aadhaar, Passport, PAN, or DL",
+    "docs_options_address": "Ration Card, Bill, Passbook, or Rental Agreement",
+    "docs_options_age": "Birth Certificate or 10th Marksheet",
+    "apply_title": "How to Apply",
+    "apply_online": "Online Method",
+    "apply_offline": "Offline Method",
+    "step_portal": "Go to NVSP Portal",
+    "step_form6": "Select 'Form 6'",
+    "step_details": "Fill personal details",
+    "step_upload": "Upload documents",
+    "step_submit": "Submit and Track",
+    "offline_visit": "Visit Electoral Office",
+    "offline_form": "Fill and Submit Form 6",
+    "processing_title": "Processing & Delivery",
+    "time_title": "Processing Time",
+    "time_desc": "Usually 2-4 weeks. Track status online.",
+    "approval_title": "After Approval",
+    "approval_desc": "Get EPIC number, download e-EPIC, and receive physical card.",
+    "mistakes_title": "Common Mistakes to Avoid",
+    "mistakes_address": "Wrong address details",
+    "mistakes_docs": "Unclear document uploads",
+    "mistakes_duplicate": "Duplicate applications",
+    "mistakes_mismatch": "Name mismatch with Aadhaar"
+  }
+}
