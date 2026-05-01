@@ -6,12 +6,34 @@ afterEach(() => {
   cleanup();
 });
 
-// Mock Firebase completely
-vi.mock('firebase/app', () => ({ initializeApp: vi.fn() }));
-vi.mock('firebase/auth', () => ({ getAuth: vi.fn(), signInAnonymously: vi.fn() }));
-vi.mock('firebase/database', () => ({ getDatabase: vi.fn(), ref: vi.fn(), push: vi.fn(), onValue: vi.fn() }));
-vi.mock('firebase/analytics', () => ({ getAnalytics: vi.fn(), logEvent: vi.fn() }));
+// 
+vi.mock('firebase/app', () => ({
+  initializeApp: vi.fn(() => ({})),
+  getApp: vi.fn(() => ({})),
+  getApps: vi.fn(() => []),
+}));
 
+vi.mock('firebase/auth', () => ({
+  getAuth: vi.fn(() => ({})),
+  signInAnonymously: vi.fn(() => Promise.resolve({ user: { uid: 'test-user' } })),
+  onAuthStateChanged: vi.fn(),
+}));
+
+vi.mock('firebase/database', () => ({
+  getDatabase: vi.fn(() => ({})),
+  ref: vi.fn(),
+  push: vi.fn(),
+  set: vi.fn(),
+  get: vi.fn(),
+  child: vi.fn(),
+  onValue: vi.fn(),
+}));
+
+vi.mock('firebase/analytics', () => ({
+  getAnalytics: vi.fn(() => ({})),
+  isSupported: vi.fn(() => Promise.resolve(false)),
+  logEvent: vi.fn(),
+}));
 // Mock Google Maps
 vi.mock('@react-google-maps/api', () => ({
   GoogleMap: ({ children }) => children,
