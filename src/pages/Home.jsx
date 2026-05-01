@@ -33,9 +33,9 @@ const Home = () => {
 
         <div className={`transition-all duration-1000 max-w-4xl z-10 space-y-4 ${revealed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}>
           <div className="flex justify-center mb-2">
-             <div className="w-20 h-20 bg-saffron rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(244,158,11,0.5)] animate-pulse">
-                <span className="material-icons text-blue-main text-5xl">how_to_vote</span>
-             </div>
+            <div className="w-20 h-20 bg-saffron rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(244,158,11,0.5)] animate-pulse">
+              <span className="material-icons text-blue-main text-5xl">how_to_vote</span>
+            </div>
           </div>
           <h1 className="text-4xl md:text-6xl font-black leading-tight font-playfair">
             {t('hero.subtitle')}
@@ -76,7 +76,7 @@ const Home = () => {
             <div className="flex-1 relative z-10">
               <h3 className="text-2xl font-bold text-blue-main mb-2 font-playfair">{t('home.eligibility_title')}</h3>
               <p className="text-muted text-sm mb-6 leading-relaxed">{t('home.eligibility_subtitle')}</p>
-              <button 
+              <button
                 className="btn-primary py-2.5 px-8 shadow-lg shadow-blue-main/20 hover:shadow-blue-main/40 transform hover:-translate-y-0.5 transition-all text-sm"
                 onClick={() => navigate('/eligibility')}
               >
@@ -94,7 +94,7 @@ const Home = () => {
             <div className="flex-1 relative z-10">
               <h3 className="text-2xl font-bold text-blue-main mb-2 font-playfair">{t('home.ai_coach_title')}</h3>
               <p className="text-muted text-sm mb-6 leading-relaxed">{t('home.ai_coach_subtitle')}</p>
-              <button 
+              <button
                 className="bg-saffron text-blue-main font-black py-2.5 px-8 rounded-radius-sm shadow-lg shadow-saffron/20 hover:shadow-saffron/40 transform hover:-translate-y-0.5 transition-all text-sm"
                 onClick={() => window.dispatchEvent(new CustomEvent('open-chatbot'))}
               >
@@ -149,7 +149,7 @@ const Home = () => {
                   </span>
                 </div>
                 <div className="text-sm font-bold text-center md:bg-white/90 md:px-2 md:py-0.5 md:rounded md:shadow-sm">
-                   {t(`journey_stops.${stop.key}`)}
+                  {t(`journey_stops.${stop.key}`)}
                 </div>
               </div>
             ))}
@@ -174,7 +174,7 @@ const Home = () => {
             >
               {card.badgeKey && (
                 <span className={`absolute top-2.5 right-2.5 text-[10px] font-bold px-1.5 py-0.5 rounded ${card.badgeColor}`}>
-                   {t(`features.${card.badgeKey}`)}
+                  {t(`features.${card.badgeKey}`)}
                 </span>
               )}
               <span className="material-icons text-4xl text-blue-main mb-4 group-hover:scale-110 transition-transform">{card.icon}</span>
@@ -222,18 +222,6 @@ const Home = () => {
         </div>
       </section>
 
-      <style dangerouslySetInnerHTML={{
-        __html: `
-        @keyframes inkDrop { 
-          0% { transform: translateY(-40px); opacity: 1; } 
-          100% { transform: translateY(10px); opacity: 0; } 
-        }
-        @keyframes inkReveal { 
-          0% { fill: white; } 
-          80% { fill: white; } 
-          100% { fill: #4F46E5; } 
-        }
-      `}} />
     </div>
   );
 };
