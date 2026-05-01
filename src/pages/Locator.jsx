@@ -60,7 +60,11 @@ const Locator = () => {
   };
 
   return (
-    <main id="main-content" tabIndex={-1} className="max-w-4xl mx-auto py-10 px-6 space-y-10">
+    <main
+      id="main-content"
+      tabIndex={-1}
+      className="max-w-4xl mx-auto py-10 px-6 space-y-10"
+    >
       <div className="text-center space-y-2">
         <h1 className="text-3xl font-bold text-blue-main font-playfair">
           {t('map.title')}
@@ -85,7 +89,9 @@ const Locator = () => {
               className="btn-primary px-4"
               aria-label="Search"
             >
-              <span className="material-icons" aria-hidden="true">search</span>
+              <span className="material-icons" aria-hidden="true">
+                search
+              </span>
             </button>
           </form>
           <div className="relative border-t border-border-gray pt-6">
@@ -93,7 +99,9 @@ const Locator = () => {
               OR
             </div>
             <button className="btn-secondary w-full">
-              <span className="material-icons" aria-hidden="true">my_location</span>{' '}
+              <span className="material-icons" aria-hidden="true">
+                my_location
+              </span>{' '}
               {t('map.use_location')}
             </button>
           </div>
@@ -118,7 +126,12 @@ const Locator = () => {
                       className="text-xs font-bold text-blue-main flex items-center gap-1 hover:underline"
                       aria-label="Get directions"
                     >
-                      <span className="material-icons text-sm" aria-hidden="true">directions</span>{' '}
+                      <span
+                        className="material-icons text-sm"
+                        aria-hidden="true"
+                      >
+                        directions
+                      </span>{' '}
                       Get Directions
                     </button>
                   </div>

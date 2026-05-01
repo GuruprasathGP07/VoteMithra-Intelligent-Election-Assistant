@@ -52,7 +52,11 @@ const Guidance = () => {
   ];
 
   return (
-    <main id="main-content" tabIndex={-1} className="bg-bg-main min-h-screen pb-20">
+    <main
+      id="main-content"
+      tabIndex={-1}
+      className="bg-bg-main min-h-screen pb-20"
+    >
       {/* Hero Section */}
       <div className="bg-blue-main text-white py-16 px-6 relative overflow-hidden">
         <div className="absolute right-0 top-0 opacity-10 pointer-events-none transform translate-x-20 -translate-y-20">

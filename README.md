@@ -3,14 +3,21 @@
 **VoteMithra** is a production-grade, AI-powered civic-tech platform designed to revolutionize voter education and democratic participation in India. Built on Google's AI and Cloud ecosystem, it empowers first-time voters with real-time guidance, interactive simulations, and multilingual support.
 
 ## Problem Statement Alignment
-This project directly addresses the **Election Process Education** challenge:
-- ✅ **Assistant** — Gemini AI chatbot in 6 Indian languages
-- ✅ **Election Process** — 7 interactive educational modules
-- ✅ **Timelines** — Dynamic 6-phase election timeline with countdown
-- ✅ **Interactive** — Gamified simulator with civic judgment challenges
-- ✅ **Easy-to-follow** — Visual journey map + multilingual AI coach
 
-[Full alignment document →](./ALIGNMENT.md)
+This project was built for the **PromptWars Hackathon — 
+Election Process Education** challenge.
+
+**Challenge:** "Create an assistant that helps users understand 
+the election process, timelines, and steps in an interactive 
+and easy-to-follow way."
+
+VoteMithra is the most complete possible answer to this 
+challenge — combining a Gemini AI assistant, 10-step interactive 
+simulation, 6-language support, legal rights education, 
+ECI emergency helplines, and a full Google Cloud deployment 
+into a single civic platform.
+
+➡️ See [ALIGNMENT.md](./ALIGNMENT.md) for detailed mapping.
 
 🌐 **Live Demo:** https://vote-mithra-917825806061.us-central1.run.app  
 💻 **GitHub:** https://github.com/GuruprasathGP07/VoteMithra-Intelligent-Election-Assistant  

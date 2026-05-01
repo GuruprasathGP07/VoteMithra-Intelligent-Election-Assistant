@@ -6,7 +6,7 @@ afterEach(() => {
   cleanup();
 });
 
-// 
+//
 vi.mock('firebase/app', () => ({
   initializeApp: vi.fn(() => ({})),
   getApp: vi.fn(() => ({})),
@@ -15,7 +15,9 @@ vi.mock('firebase/app', () => ({
 
 vi.mock('firebase/auth', () => ({
   getAuth: vi.fn(() => ({})),
-  signInAnonymously: vi.fn(() => Promise.resolve({ user: { uid: 'test-user' } })),
+  signInAnonymously: vi.fn(() =>
+    Promise.resolve({ user: { uid: 'test-user' } })
+  ),
   onAuthStateChanged: vi.fn(),
 }));
 
@@ -56,13 +58,17 @@ vi.mock('react-i18next', () => ({
 vi.mock('@google/generative-ai', () => ({
   GoogleGenerativeAI: vi.fn(() => ({
     getGenerativeModel: vi.fn(() => ({
-      generateContent: vi.fn(() => Promise.resolve({
-        response: { text: () => 'Mock AI response' }
-      })),
+      generateContent: vi.fn(() =>
+        Promise.resolve({
+          response: { text: () => 'Mock AI response' },
+        })
+      ),
       startChat: vi.fn(() => ({
-        sendMessage: vi.fn(() => Promise.resolve({
-          response: { text: () => 'Mock chat response' }
-        })),
+        sendMessage: vi.fn(() =>
+          Promise.resolve({
+            response: { text: () => 'Mock chat response' },
+          })
+        ),
       })),
     })),
   })),
@@ -71,7 +77,7 @@ vi.mock('@google/generative-ai', () => ({
 // Mock window.matchMedia
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
-  value: vi.fn().mockImplementation(query => ({
+  value: vi.fn().mockImplementation((query) => ({
     matches: false,
     media: query,
     onchange: null,

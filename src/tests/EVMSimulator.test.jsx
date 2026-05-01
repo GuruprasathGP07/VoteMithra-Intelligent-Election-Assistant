@@ -14,7 +14,7 @@ describe('EVMSimulator Page', () => {
   it('shows VVPAT panel after clicking a candidate', async () => {
     render(<EVMSimulator />);
 
-    const buttons = screen.getAllByRole("button");
+    const buttons = screen.getAllByRole('button');
     fireEvent.click(buttons[0]);
 
     await screen.findByText(/VVPAT/i); // waits properly

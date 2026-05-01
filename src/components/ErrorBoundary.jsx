@@ -32,7 +32,9 @@ class ErrorBoundary extends Component {
           className="min-h-screen flex flex-col items-center justify-center p-8 text-center"
         >
           <div className="max-w-md">
-            <div className="text-6xl mb-4" aria-hidden="true">⚠️</div>
+            <div className="text-6xl mb-4" aria-hidden="true">
+              ⚠️
+            </div>
             <h1 className="text-2xl font-bold text-gray-800 mb-2">
               Something went wrong
             </h1>

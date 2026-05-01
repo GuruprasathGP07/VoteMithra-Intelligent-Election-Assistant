@@ -10,7 +10,7 @@ describe('ElectionTimeline Page', () => {
         <Timeline />
       </BrowserRouter>
     );
-    
+
     // With our mock, t(key) returns the key string
     expect(screen.getByText('timeline.reg_title')).toBeInTheDocument();
     expect(screen.getByText('timeline.nom_title')).toBeInTheDocument();

@@ -20,12 +20,14 @@ const LanguageSwitcher = ({ currentLang, onChange }) => {
     const lang = e.target.value;
     const oldLang = i18n.language;
 
+    // Always change i18next language first
+    i18n.changeLanguage(lang);
+    localStorage.setItem('voteMitra_lang', lang);
+    logLanguageSwitched(oldLang, lang);
+
+    // Also notify parent if it needs to know
     if (onChange) {
       onChange(lang);
-    } else {
-      i18n.changeLanguage(lang);
-      localStorage.setItem('voteMitra_lang', lang);
-      logLanguageSwitched(oldLang, lang);
     }
   };
 

@@ -8,7 +8,11 @@ const FAQ = () => {
   const [openIndex, setOpenIndex] = useState(null);
 
   return (
-    <main id="main-content" tabIndex={-1} className="max-w-3xl mx-auto py-10 px-6">
+    <main
+      id="main-content"
+      tabIndex={-1}
+      className="max-w-3xl mx-auto py-10 px-6"
+    >
       <h1 className="text-3xl font-bold text-blue-main text-center font-playfair mb-10">
         {t('faq.page_title')}
       </h1>

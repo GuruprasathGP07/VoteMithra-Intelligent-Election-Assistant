@@ -123,7 +123,11 @@ const ElectionSimulator = () => {
   const currentData = simulatorSteps[step];
 
   return (
-    <main id="main-content" tabIndex={-1} className="max-w-2xl mx-auto mt-10 px-6 pb-20">
+    <main
+      id="main-content"
+      tabIndex={-1}
+      className="max-w-2xl mx-auto mt-10 px-6 pb-20"
+    >
       <div className="card text-center">
         <ProgressBar
           progress={(step / (simulatorSteps.length - 1)) * 100}
@@ -144,7 +148,10 @@ const ElectionSimulator = () => {
             <div className="space-y-6">
               <div className="w-40 h-28 mx-auto bg-blue-pale rounded-radius border-2 border-border-gray flex items-center justify-center relative overflow-hidden">
                 <div className="absolute top-0 left-0 right-0 h-4 bg-saffron" />
-                <span className="material-icons text-5xl text-blue-main" aria-hidden="true">
+                <span
+                  className="material-icons text-5xl text-blue-main"
+                  aria-hidden="true"
+                >
                   {currentData.icon}
                 </span>
               </div>
@@ -331,7 +338,10 @@ const ElectionSimulator = () => {
 
           {isComplete && (
             <div className="space-y-6 animate-fadeIn">
-              <span className="material-icons text-6xl text-green-main animate-bounce" aria-hidden="true">
+              <span
+                className="material-icons text-6xl text-green-main animate-bounce"
+                aria-hidden="true"
+              >
                 check_circle
               </span>
               <h2 className="text-3xl font-bold text-green-main">
@@ -348,8 +358,6 @@ const ElectionSimulator = () => {
           )}
         </div>
       </div>
-
-
 
       <style
         dangerouslySetInnerHTML={{

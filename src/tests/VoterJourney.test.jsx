@@ -20,12 +20,12 @@ describe('VoterJourney on Home Page', () => {
         <Home />
       </BrowserRouter>
     );
-    
+
     // Check for IDs 1-9 that are rendered in the badges
     for (let i = 1; i <= 9; i++) {
       expect(screen.getByText(i.toString())).toBeInTheDocument();
     }
-    
+
     // Check for specific keys from journey_stops translations (mock returns key)
     expect(screen.getByText(/journey_stops.eligible/i)).toBeInTheDocument();
     expect(screen.getByText(/journey_stops.registered/i)).toBeInTheDocument();
@@ -37,11 +37,11 @@ describe('VoterJourney on Home Page', () => {
         <Home />
       </BrowserRouter>
     );
-    
+
     // Click "Am I Eligible?" which has id "1"
     const stop1 = screen.getByText('1').closest('div');
     fireEvent.click(stop1);
-    
+
     expect(mockNavigate).toHaveBeenCalledWith('/eligibility');
   });
 });

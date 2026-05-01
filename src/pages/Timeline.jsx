@@ -50,7 +50,11 @@ const Timeline = () => {
   ];
 
   return (
-    <main id="main-content" tabIndex={-1} className="max-w-4xl mx-auto py-10 px-6">
+    <main
+      id="main-content"
+      tabIndex={-1}
+      className="max-w-4xl mx-auto py-10 px-6"
+    >
       <div className="flex justify-start mb-6">
         <Link
           to="/"

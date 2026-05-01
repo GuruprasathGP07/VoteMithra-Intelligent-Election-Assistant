@@ -32,7 +32,6 @@ const Header = ({ currentLanguage, onLanguageChange }) => {
 
   return (
     <>
-
       <header
         className="fixed top-0 left-0 right-0 h-16 bg-white z-[1000] flex items-center justify-between px-4 md:px-8 shadow-sm border-b border-border-gray"
         role="banner"
@@ -138,7 +137,7 @@ Header.propTypes = {
 };
 
 Header.defaultProps = {
-  currentLanguage: 'en',
+  currentLanguage: '',
   onLanguageChange: () => {},
 };
 

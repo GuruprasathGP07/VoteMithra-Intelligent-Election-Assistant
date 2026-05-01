@@ -31,7 +31,11 @@ const steps = [
 
 const Nomination = () => {
   return (
-    <main id="main-content" tabIndex={-1} className="max-w-4xl mx-auto py-12 px-6 space-y-12">
+    <main
+      id="main-content"
+      tabIndex={-1}
+      className="max-w-4xl mx-auto py-12 px-6 space-y-12"
+    >
       <div className="flex justify-start">
         <Link
           to="/"

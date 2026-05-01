@@ -268,7 +268,9 @@ const Home = () => {
             onClick={() => navigate('/faq')}
           >
             {t('faq.see_all')}{' '}
-            <span className="material-icons" aria-hidden="true">arrow_forward</span>
+            <span className="material-icons" aria-hidden="true">
+              arrow_forward
+            </span>
           </button>
         </div>
       </section>

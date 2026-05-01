@@ -1,67 +1,64 @@
 # Problem Statement Alignment
 
-## Challenge: Election Process Education
-
-> "Create an assistant that helps users understand the election process,
-> timelines, and steps in an interactive and easy-to-follow way."
+## Hackathon Challenge
+"Create an assistant that helps users understand the election 
+process, timelines, and steps in an interactive and 
+easy-to-follow way."
 
 ## How VoteMithra Addresses Every Requirement
 
-### "Assistant" → AI Voter Coach (Gemini API)
-VoteMithra's core is a Gemini-powered multilingual chatbot that answers
-voter questions in 6 Indian languages (English, Hindi, Tamil, Telugu,
-Kannada, Malayalam). The system prompt dynamically injects the user's
-selected language so responses are native, not translated.
+### "Assistant"
+Google Gemini-powered AI Voter Coach responds in 6 Indian 
+languages. System prompt dynamically injects user's selected 
+language (en/hi/ta/te/kn/ml) ensuring native-language responses.
+Automated fallback chain: Gemini 1.5 Pro → Flash ensures 
+24/7 availability.
 
-### "Election Process" → 7 Dedicated Educational Modules
-| Module | What It Covers |
-|--------|----------------|
-| Election Day Simulator | Complete 10-step polling booth walkthrough |
-| EVM Simulator | Interactive voting machine with VVPAT verification |
-| Voter Legal Rights | Constitutional rights + 5 key election laws |
-| Vote Confidence Page | EVM myths vs facts, how votes are protected |
-| Nomination Guide | How any citizen can contest an election |
-| Eligibility Checker | Real-time voter eligibility calculation |
-| FAQ (12 questions) | Most common first-time voter questions |
+### "Election Process"
+Seven dedicated modules cover the complete process:
+- Voter Registration (Eligibility Checker + guide)
+- Nomination Process (step-by-step guide)
+- Campaign Period (MCC explainer)
+- Polling Day (Election Day Simulator with 10 steps)
+- EVM Usage (High-fidelity EVM Simulator + VVPAT)
+- Vote Counting (Vote Confidence page)
+- Result Declaration (Election Timeline)
 
-### "Timelines" → Election Timeline Page
-Dynamic 6-phase timeline from voter registration deadline to result
-declaration. Each phase shows what happens and what the voter must do.
-Includes a live countdown to the next major election.
+### "Timelines"
+Dedicated Election Timeline page with 6 phases:
+Registration → Nomination → Campaign → Silence Period 
+→ Polling Day → Counting & Result.
+Each phase includes voter action items and deadlines.
+Live countdown to next election date.
 
-### "Interactive" → Gamified Simulation with Civic Judgment Challenges
-Users do not read about elections — they simulate them. The Election Day
-Simulator injects challenge moments where users must make correct legal
-decisions to advance. Wrong answers show the legal consequence and the
-specific law violated. The Quiz awards certificates with QR codes.
+### "Interactive"
+- 10-step Election Day Simulator with civic judgment challenges
+- EVM Simulator with VVPAT verification flow
+- Fake News Detector with swipe-to-classify mechanic
+- 10-question Quiz with per-question law citations
+- Eligibility Checker with instant form-based result
+- AI chatbot with contextual conversation history
 
-### "Easy-to-Follow" → Multilingual + Visual Journey Map
-- 6 Indian languages with native AI responses
-- Visual voter journey map (winding road with 9 clickable stops)
-- Step-by-step simulator with progress bar
-- Per-question feedback with law citations in the Quiz
-- Persistent AI coach available on every page
+### "Easy-to-Follow"
+- 6 Indian languages via i18next (en, hi, ta, te, kn, ml)
+- AI chatbot responds natively in selected language
+- Visual journey map replacing flat navigation
+- Step-by-step progress bars in all simulators
+- Completion certificates with QR codes
+- ECI Emergency Helplines with tap-to-call on mobile
 
-## Google Technology Used
-| Google Product | Purpose |
-|----------------|---------|
-| Gemini API | AI chatbot + Fake News scoring + Legal checker |
-| Google Maps API | Poll booth locator with live directions |
-| Firebase Auth | Anonymous session management |
-| Firebase Database | Leaderboard + Misinformation wall |
+## Google Services Used
+| Service | Purpose |
+|---|---|
+| Google Gemini API | AI chatbot + fake news detection + legal checker |
+| Google Maps JS API | Polling booth locator with live markers |
+| Google Geocoding API | PIN code to coordinates conversion |
+| Google Places API | Nearest booth search |
+| Firebase Auth (Anonymous) | Session tracking without login |
+| Firebase Realtime Database | Leaderboard + misinformation wall |
 | Firebase Analytics | Feature usage tracking |
-| Firebase Hosting | Production deployment with CDN |
-| Cloud Run | Auto-scaling serverless infrastructure |
+| Firebase Hosting | Global CDN deployment with SSL |
 | Cloud Build | CI/CD pipeline |
-| Google Fonts | Playfair Display + DM Sans typography |
-
-## Lighthouse Scores (Production Build)
-- Performance: 90+
-- Accessibility: 98+
-- Best Practices: 100
-- SEO: 90+
-
-## Why VoteMithra Will Matter After the Hackathon
-VoteMithra is not a demo. Every feature degrades gracefully offline.
-The Docker image is under 50MB. It is ready to be handed to any state
-Election Commission and deployed immediately.
+| Cloud Run | Serverless auto-scaling deployment |
+| GCP Secret Manager | Secure API key management |
+| Google Fonts | Playfair Display + DM Sans |

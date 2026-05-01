@@ -175,7 +175,9 @@ const Chatbot = ({
       <button
         className="fixed bottom-20 right-6 w-14 h-14 bg-saffron text-blue-main rounded-full flex items-center justify-center shadow-[0_4px_20px_rgba(244,145,31,0.5)] z-[998] hover:scale-110 active:scale-90 transition-transform border-2 border-white"
         onClick={handleToggle}
-        aria-label={isOpen ? 'Close Chatbot' : 'Open AI Voter Coach chat assistant'}
+        aria-label={
+          isOpen ? 'Close Chatbot' : 'Open AI Voter Coach chat assistant'
+        }
       >
         <span className="material-icons text-2xl" aria-hidden="true">
           {isOpen ? 'close' : 'smart_toy'}
@@ -194,7 +196,9 @@ const Chatbot = ({
         {/* Header */}
         <div className="bg-saffron p-4 flex items-center gap-3 text-blue-main border-bottom-2 border-white/20">
           <div className="w-9 h-9 bg-blue-main/10 rounded-full flex items-center justify-center">
-            <span className="material-icons text-xl" aria-hidden="true">smart_toy</span>
+            <span className="material-icons text-xl" aria-hidden="true">
+              smart_toy
+            </span>
           </div>
           <div className="flex-1">
             <h4 className="text-sm font-bold font-dm-sans leading-none">
@@ -205,7 +209,9 @@ const Chatbot = ({
             </p>
           </div>
           <button onClick={handleToggle} aria-label="Close chat">
-            <span className="material-icons text-lg" aria-hidden="true">close</span>
+            <span className="material-icons text-lg" aria-hidden="true">
+              close
+            </span>
           </button>
         </div>
 
@@ -278,7 +284,9 @@ const Chatbot = ({
               onClick={() => handleSend()}
               aria-label="Send message"
             >
-              <span className="material-icons text-lg" aria-hidden="true">send</span>
+              <span className="material-icons text-lg" aria-hidden="true">
+                send
+              </span>
             </button>
           </div>
         </div>

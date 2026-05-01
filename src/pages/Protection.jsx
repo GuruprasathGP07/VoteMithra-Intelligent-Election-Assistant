@@ -47,7 +47,11 @@ const Protection = () => {
   ];
 
   return (
-    <main id="main-content" tabIndex={-1} className="bg-bg-main min-h-screen pb-20">
+    <main
+      id="main-content"
+      tabIndex={-1}
+      className="bg-bg-main min-h-screen pb-20"
+    >
       <div className="max-w-6xl mx-auto py-12 px-6 space-y-20">
         {/* Header Section */}
         <div className="space-y-6">
