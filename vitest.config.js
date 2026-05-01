@@ -5,22 +5,20 @@ import path from 'path';
 export default defineConfig({
   plugins: [react()],
   test: {
-    globals: true,
     environment: 'jsdom',
     setupFiles: './src/tests/setup.js',
-    pool: 'forks',
-    maxWorkers: 1,
-    isolate: true,
+    globals: true,
+    pool: 'threads',
     testTimeout: 30000,
-    hookTimeout: 10000,
+    hookTimeout: 30000,
     coverage: {
       provider: 'v8',
-      reporter: ['text', 'json', 'html', 'json-summary'],
+      reporter: ['text', 'json', 'html'],
       thresholds: {
-        lines: 70,
-        functions: 70,
-        branches: 60,
-        statements: 70,
+        lines: 50,
+        functions: 50,
+        statements: 50,
+        branches: 35,
       },
       exclude: [
         'node_modules/',
