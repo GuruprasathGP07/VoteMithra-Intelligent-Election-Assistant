@@ -1,5 +1,9 @@
-import { getAnalytics, logEvent as firebaseLogEvent, isSupported } from "firebase/analytics";
-import { initializeApp, getApps, getApp } from "firebase/app";
+import {
+  getAnalytics,
+  logEvent as firebaseLogEvent,
+  isSupported,
+} from 'firebase/analytics';
+import { initializeApp, getApps, getApp } from 'firebase/app';
 
 /**
  * Firebase Configuration loaded from Environment Variables (VITE_ prefix).
@@ -11,7 +15,7 @@ const firebaseConfig = {
   storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
   messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
   appId: import.meta.env.VITE_FIREBASE_APP_ID,
-  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
 
 // Initialize Firebase Instance
@@ -19,18 +23,23 @@ const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
 
 // Analytics instance (handled asynchronously for safety)
 let analytics = null;
-isSupported().then(supported => {
-  if (supported) {
-    analytics = getAnalytics(app);
-  }
-}).catch(err => {
-  if (import.meta.env.DEV) {
-    console.warn("Analytics not supported or failed to initialize:", err);
-  }
-});
+isSupported()
+  .then((supported) => {
+    if (supported) {
+      analytics = getAnalytics(app);
+    }
+  })
+  .catch((err) => {
+    if (import.meta.env.DEV) {
+      // eslint-disable-next-line no-console
+      console.warn('Analytics not supported or failed to initialize:', err);
+    }
+  });
 
 /**
  * Universal wrapper for logging analytics events.
+ * @param {string} eventName - Name of the event to log
+ * @param {Object} [properties={}] - Key-value pairs of metadata
  */
 export const logCustomEvent = (eventName, properties = {}) => {
   if (!eventName) return;
@@ -46,6 +55,7 @@ export const logCustomEvent = (eventName, properties = {}) => {
       });
     } catch (error) {
       if (import.meta.env.DEV) {
+        // eslint-disable-next-line no-console
         console.warn(`Analytics Error [${eventName}]:`, error);
       }
     }
@@ -64,23 +74,50 @@ export const logCustomEvent = (eventName, properties = {}) => {
           event_name: eventName,
           properties: properties,
           timestamp: new Date().toISOString(),
-          userAgent: navigator.userAgent
-        }
-      })
-    }).catch(() => { /* Silent fail for analytics */ });
+          userAgent: navigator.userAgent,
+        },
+      }),
+    }).catch(() => {
+      /* Silent fail for analytics */
+    });
   }
 };
 
 // --- Preferred Analytics Exports ---
 
-export const logQuizStarted = (userName) => logCustomEvent('quiz_started', { userName });
-export const logQuizCompleted = (userName, score) => logCustomEvent('quiz_completed', { userName, score });
-export const logEVMVoteCast = (candidateId, language) => logCustomEvent('evm_vote_cast', { candidateId, language });
-export const logChatbotQuery = (language) => logCustomEvent('chatbot_query_sent', { language });
-export const logFakeNewsCheck = (textLength) => logCustomEvent('fakenews_check_performed', { textLength });
-export const logBoothSearch = (district) => logCustomEvent('booth_search_performed', { district });
-export const logEligibilityChecked = (result) => logCustomEvent('eligibility_checked', { eligible: result });
-export const logLanguageSwitched = (from, to) => logCustomEvent('language_switched', { from, to });
+/** Logs when a user starts the knowledge quiz. */
+export const logQuizStarted = (userName) =>
+  logCustomEvent('quiz_started', { userName });
+
+/** Logs when a user completes the quiz with their final score. */
+export const logQuizCompleted = (userName, score) =>
+  logCustomEvent('quiz_completed', { userName, score });
+
+/** Logs a mock vote cast in the EVM simulator. */
+export const logEVMVoteCast = (candidateId, language) =>
+  logCustomEvent('evm_vote_cast', { candidateId, language });
+
+/** Logs a query sent to the AI chatbot. */
+export const logChatbotQuery = (language) =>
+  logCustomEvent('chatbot_query_sent', { language });
+
+/** Logs when a user uses the fake news scanner. */
+export const logFakeNewsCheck = (textLength) =>
+  logCustomEvent('fakenews_check_performed', { textLength });
+
+/** Logs a search for polling booths. */
+export const logBoothSearch = (district) =>
+  logCustomEvent('booth_search_performed', { district });
+
+/** Logs result of eligibility checker. */
+export const logEligibilityChecked = (result) =>
+  logCustomEvent('eligibility_checked', { eligible: result });
+
+/** Logs when the user switches the app language. */
+export const logLanguageSwitched = (from, to) =>
+  logCustomEvent('language_switched', { from, to });
+
+/** Logs a view of the election timeline. */
 export const logTimelineViewed = () => logCustomEvent('timeline_viewed');
 
 // --- Backward Compatible Aliases ---

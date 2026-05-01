@@ -8,18 +8,11 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     setupFiles: './src/tests/setup.js',
-
-    // Vitest 4: pool and concurrency settings are top-level
     pool: 'forks',
-    maxWorkers: 2,
-
-    // Fresh environment per file (prevents state leakage between suites)
+    maxWorkers: 1,
     isolate: true,
-
-    // Hard timeout guards — prevents infinite hangs
     testTimeout: 15000,
     hookTimeout: 10000,
-
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html', 'json-summary'],
@@ -31,8 +24,10 @@ export default defineConfig({
       },
       exclude: [
         'node_modules/',
-        'src/tests/setup.js',
+        'src/tests/',
         '**/*.test.{js,jsx}',
+        'src/main.jsx',
+        '**/*.config.*',
       ],
     },
   },

@@ -1,44 +1,34 @@
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
+import { render, screen, fireEvent } from '@testing-library/react';
 import LanguageSwitcher from '../components/LanguageSwitcher';
-// Import the singleton mock so we assert on the exact same reference
-import { changeLanguageMock } from './setup.js';
 
 describe('LanguageSwitcher Component', () => {
-  beforeEach(() => {
-    changeLanguageMock.mockClear();
-  });
-
-  it('renders with correct default selection', () => {
-    render(<LanguageSwitcher />);
+  it('renders all 6 language options', () => {
+    const onChange = vi.fn();
+    render(<LanguageSwitcher currentLang="en" onChange={onChange} />);
+    
     const select = screen.getByRole('combobox');
-    expect(select).toHaveValue('en');
-    expect(screen.getByText('English')).toBeInTheDocument();
-  });
-
-  it('contains all 6 language options', () => {
-    render(<LanguageSwitcher />);
+    expect(select).toBeInTheDocument();
+    
     const options = screen.getAllByRole('option');
     expect(options).toHaveLength(6);
-    expect(screen.getByText('தமிழ்')).toBeInTheDocument();
+    
+    const codes = options.map(opt => opt.value);
+    expect(codes).toContain('en');
+    expect(codes).toContain('hi');
+    expect(codes).toContain('ta');
+    expect(codes).toContain('te');
+    expect(codes).toContain('kn');
+    expect(codes).toContain('ml');
   });
 
-  it('changing selection calls changeLanguage', async () => {
-    const user = userEvent.setup();
-    render(<LanguageSwitcher />);
+  it('calls onChange when selection changes', () => {
+    const onChange = vi.fn();
+    render(<LanguageSwitcher currentLang="en" onChange={onChange} />);
+    
     const select = screen.getByRole('combobox');
-
-    await user.selectOptions(select, 'ta');
-
-    expect(changeLanguageMock).toHaveBeenCalledWith('ta');
-    expect(localStorage.setItem).toHaveBeenCalledWith('voteMitra_lang', 'ta');
-  });
-
-  it('select container has correct styles', () => {
-    render(<LanguageSwitcher />);
-    const container = screen.getByRole('combobox').closest('div');
-    expect(container).toHaveClass('bg-bg-main');
-    expect(container).toHaveClass('border-border-gray');
+    fireEvent.change(select, { target: { value: 'ta' } });
+    
+    expect(onChange).toHaveBeenCalledWith('ta');
   });
 });

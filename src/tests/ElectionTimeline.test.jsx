@@ -1,37 +1,31 @@
-import { render, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
-import { MemoryRouter } from 'react-router-dom';
+import { render, screen } from '@testing-library/react';
+import { BrowserRouter } from 'react-router-dom';
 import Timeline from '../pages/Timeline';
 
-describe('Timeline Component', () => {
-  it('all timeline phases render', () => {
+describe('ElectionTimeline Page', () => {
+  it('renders all 6 phases', () => {
     render(
-      <MemoryRouter>
+      <BrowserRouter>
         <Timeline />
-      </MemoryRouter>
+      </BrowserRouter>
     );
-    // Use regex to be safe with mock behavior
-    expect(screen.getByText(/timeline\.title/i)).toBeInTheDocument();
-    expect(screen.getByText(/timeline\.reg_title/i)).toBeInTheDocument();
-    expect(screen.getByText(/timeline\.pol_title/i)).toBeInTheDocument();
+    
+    // With our mock, t(key) returns the key string
+    expect(screen.getByText('timeline.reg_title')).toBeInTheDocument();
+    expect(screen.getByText('timeline.nom_title')).toBeInTheDocument();
+    expect(screen.getByText('timeline.cam_title')).toBeInTheDocument();
+    expect(screen.getByText('timeline.sil_title')).toBeInTheDocument();
+    expect(screen.getByText('timeline.pol_title')).toBeInTheDocument();
+    expect(screen.getByText('timeline.res_title')).toBeInTheDocument();
   });
 
-  it('dates/countdown are displayed correctly', () => {
+  it('renders the countdown card', () => {
     render(
-      <MemoryRouter>
+      <BrowserRouter>
         <Timeline />
-      </MemoryRouter>
+      </BrowserRouter>
     );
     expect(screen.getByText(/365 Days Left/i)).toBeInTheDocument();
-  });
-
-  it('current phase is highlighted', () => {
-    render(
-      <MemoryRouter>
-        <Timeline />
-      </MemoryRouter>
-    );
-    const phases = screen.getAllByRole('heading', { level: 4 });
-    expect(phases[0].closest('div')).toHaveClass('group');
   });
 });

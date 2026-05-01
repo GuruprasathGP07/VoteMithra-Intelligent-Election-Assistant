@@ -9,7 +9,7 @@ export const sanitizeInput = (text) => {
   if (!text) return '';
   // Strip all HTML tags
   const doc = new DOMParser().parseFromString(text, 'text/html');
-  const cleanText = doc.body.textContent || "";
+  const cleanText = doc.body.textContent || '';
   // Further clean with DOMPurify to be safe
   return DOMPurify.sanitize(cleanText, { ALLOWED_TAGS: [] });
 };
@@ -29,7 +29,9 @@ export const sanitizeHTML = (html) => {
 
 /**
  * Hook or helper for rendering sanitized HTML safely.
+ * @param {string} html - The raw HTML string to be sanitized and returned as a dangerouslySetInnerHTML object.
+ * @returns {{__html: string}} Object with __html property for React's dangerouslySetInnerHTML.
  */
 export const createSafeHTML = (html) => ({
-  __html: sanitizeHTML(html)
+  __html: sanitizeHTML(html),
 });

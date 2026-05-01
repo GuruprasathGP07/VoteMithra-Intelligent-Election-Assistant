@@ -1,50 +1,50 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
+import { render, screen, fireEvent } from '@testing-library/react';
 import Eligibility from '../pages/Eligibility';
 
-describe('Eligibility Component', () => {
-  it('age below 18 shows ineligible', async () => {
+describe('Eligibility Page', () => {
+  it('renders the Eligibility page and form', () => {
     render(<Eligibility />);
-    const dobInput = screen.getByLabelText(/Date of Birth/i);
-    fireEvent.change(dobInput, { target: { value: '2015-01-01' } });
-    
-    fireEvent.click(screen.getByRole('button', { name: /Check My Eligibility/i }));
-    
-    await waitFor(() => {
-      expect(screen.getByText(/Future Voter/i)).toBeInTheDocument();
-    });
+    expect(screen.getByText('Eligibility Checker')).toBeInTheDocument();
+    expect(screen.getByLabelText('Date of Birth')).toBeInTheDocument();
+    expect(screen.getByText('Check My Eligibility')).toBeInTheDocument();
   });
 
-  it('age 18+ shows eligible when all criteria met', async () => {
+  it('shows eligible message for DOB 20 years ago', () => {
     render(<Eligibility />);
-    fireEvent.change(screen.getByLabelText(/Date of Birth/i), { target: { value: '1995-01-01' } });
+    const dobInput = screen.getByLabelText('Date of Birth');
+    const today = new Date();
+    const twentyYearsAgo = new Date(today.getFullYear() - 20, today.getMonth(), today.getDate());
+    fireEvent.change(dobInput, { target: { value: twentyYearsAgo.toISOString().split('T')[0] } });
     
-    // Select 'Yes' for citizenship
-    fireEvent.click(screen.getByLabelText(/yes for are you an indian citizen/i));
+    // Set other criteria to positive
+    fireEvent.click(screen.getByLabelText('yes for Are you an Indian Citizen?'));
+    fireEvent.click(screen.getByLabelText('no for Have you been declared of unsound mind by a court?'));
+    fireEvent.click(screen.getByLabelText('no for Have you been disqualified by a court or ECI?'));
     
-    // Select 'No' for unsound mind
-    fireEvent.click(screen.getByLabelText(/no for have you been declared of unsound mind/i));
-    
-    // Select 'No' for disqualified
-    fireEvent.click(screen.getByLabelText(/no for have you been disqualified/i));
-    
-    fireEvent.click(screen.getByRole('button', { name: /Check My Eligibility/i }));
-    
-    await waitFor(() => {
-      expect(screen.getByText(/You are Eligible/i)).toBeInTheDocument();
-    });
+    fireEvent.click(screen.getByText('Check My Eligibility'));
+    expect(screen.getByText('You are Eligible! ✓')).toBeInTheDocument();
   });
 
-  it('non-citizen shows ineligible', async () => {
+  it('shows underage message for DOB 5 years ago', () => {
     render(<Eligibility />);
-    fireEvent.change(screen.getByLabelText(/Date of Birth/i), { target: { value: '1995-01-01' } });
+    const dobInput = screen.getByLabelText('Date of Birth');
+    const today = new Date();
+    const fiveYearsAgo = new Date(today.getFullYear() - 5, today.getMonth(), today.getDate());
+    fireEvent.change(dobInput, { target: { value: fiveYearsAgo.toISOString().split('T')[0] } });
     
-    fireEvent.click(screen.getByLabelText(/no for are you an indian citizen/i));
+    fireEvent.click(screen.getByText('Check My Eligibility'));
+    expect(screen.getByText('Future Voter!')).toBeInTheDocument();
+  });
+
+  it('shows incorrect message for citizen=No', () => {
+    render(<Eligibility />);
+    const dobInput = screen.getByLabelText('Date of Birth');
+    fireEvent.change(dobInput, { target: { value: '2000-01-01' } });
     
-    fireEvent.click(screen.getByRole('button', { name: /Check My Eligibility/i }));
-    
-    await waitFor(() => {
-      expect(screen.getByText(/Not Eligible/i)).toBeInTheDocument();
-    });
+    fireEvent.click(screen.getByLabelText('no for Are you an Indian Citizen?'));
+    fireEvent.click(screen.getByText('Check My Eligibility'));
+    expect(screen.getByText('Not Eligible')).toBeInTheDocument();
+    expect(screen.getByText(/Only Indian citizens can vote/)).toBeInTheDocument();
   });
 });

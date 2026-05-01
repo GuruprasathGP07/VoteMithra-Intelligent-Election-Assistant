@@ -1,7 +1,14 @@
-import { initializeApp, getApps, getApp } from "firebase/app";
-import { getDatabase, ref, push, onValue, limitToLast, query } from "firebase/database";
-import { getAuth, signInAnonymously } from "firebase/auth";
-import { getAnalytics, isSupported } from "firebase/analytics";
+import { initializeApp, getApps, getApp } from 'firebase/app';
+import {
+  getDatabase,
+  ref,
+  push,
+  onValue,
+  limitToLast,
+  query,
+} from 'firebase/database';
+import { getAuth, signInAnonymously } from 'firebase/auth';
+import { getAnalytics, isSupported } from 'firebase/analytics';
 
 /**
  * Firebase project configuration.
@@ -35,7 +42,7 @@ let analytics;
  */
 const isFirebaseConfigured =
   Boolean(firebaseConfig.apiKey) &&
-  firebaseConfig.apiKey !== "YOUR_FIREBASE_API_KEY";
+  firebaseConfig.apiKey !== 'YOUR_FIREBASE_API_KEY';
 
 if (isFirebaseConfigured) {
   // Reuse existing app instance — prevents "duplicate-app" crash
@@ -48,14 +55,14 @@ if (isFirebaseConfigured) {
   // Analytics is not supported in all environments (e.g. SSR, some browsers).
   // Initialise asynchronously to avoid blocking the app.
   isSupported()
-    .then(supported => {
+    .then((supported) => {
       if (supported) {
         analytics = getAnalytics(app);
       }
     })
-    .catch(err => {
+    .catch((err) => {
       if (import.meta.env.DEV) {
-        console.warn("Firebase Analytics not supported:", err);
+        console.warn('Firebase Analytics not supported:', err);
       }
     });
 }

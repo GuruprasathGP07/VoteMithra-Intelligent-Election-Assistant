@@ -3,29 +3,34 @@
 @tailwind utilities;
 
 :root {
-  --blue: #0B3A75;
-  --blue-light: #1553A8;
-  --blue-pale: #E8F0FD;
-  --saffron: #F59E0B;
-  --saffron-dark: #D97706;
-  --white: #FFFFFF;
-  --bg: #F9FAFB;
-  --ink: #1A1A2E;
-  --muted: #6B7280;
-  --border: #E5E7EB;
-  --green: #16A34A;
-  --red: #DC2626;
-  --amber: #D97706;
+  --blue: #0b3a75;
+  --blue-light: #1553a8;
+  --blue-pale: #e8f0fd;
+  --saffron: #f59e0b;
+  --saffron-dark: #d97706;
+  --white: #ffffff;
+  --bg: #f9fafb;
+  --ink: #1a1a2e;
+  --muted: #6b7280;
+  --border: #e5e7eb;
+  --green: #16a34a;
+  --red: #dc2626;
+  --amber: #d97706;
   --radius: 12px;
   --radius-sm: 8px;
-  --shadow: 0 4px 16px rgba(11,58,117,0.10);
+  --shadow: 0 4px 16px rgba(11, 58, 117, 0.1);
 }
 
 @layer base {
   body {
     @apply bg-bg-main text-ink font-dm-sans antialiased;
   }
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-playfair;
   }
 }
@@ -49,4 +54,35 @@
   .progress-fill {
     @apply bg-saffron h-full transition-all duration-300;
   }
+}
+
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  background: #0b3a75;
+  color: #ffffff;
+  padding: 8px 16px;
+  font-size: 1rem;
+  font-weight: 600;
+  z-index: 9999;
+  border-radius: 0 0 8px 0;
+  text-decoration: none;
+  transition: top 0.2s;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* Visible focus rings for keyboard navigation */
+*:focus-visible {
+  outline: 2px solid #f59e0b;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Remove outline only for mouse users, keep for keyboard */
+*:focus:not(:focus-visible) {
+  outline: none;
 }

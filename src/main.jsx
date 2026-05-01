@@ -1,8 +1,8 @@
-import React, { Suspense, Component } from 'react'
-import ReactDOM from 'react-dom/client'
-import { BrowserRouter } from 'react-router-dom'
-import App from './App.jsx'
-import './index.css'
+import React, { Suspense, Component } from 'react';
+import ReactDOM from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
+import App from './App.jsx';
+import './index.css';
 import './i18n';
 
 /**
@@ -31,12 +31,23 @@ class ErrorBoundary extends Component {
         <div
           role="alert"
           style={{
-            display: 'flex', flexDirection: 'column', alignItems: 'center',
-            justifyContent: 'center', minHeight: '100vh', padding: '2rem',
-            fontFamily: 'sans-serif', textAlign: 'center'
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            minHeight: '100vh',
+            padding: '2rem',
+            fontFamily: 'sans-serif',
+            textAlign: 'center',
           }}
         >
-          <h1 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1rem' }}>
+          <h1
+            style={{
+              fontSize: '1.5rem',
+              fontWeight: 'bold',
+              marginBottom: '1rem',
+            }}
+          >
             Something went wrong
           </h1>
           <p style={{ color: '#666', marginBottom: '1.5rem' }}>
@@ -45,9 +56,13 @@ class ErrorBoundary extends Component {
           <button
             onClick={() => window.location.reload()}
             style={{
-              padding: '0.5rem 1.5rem', background: '#1d4ed8',
-              color: 'white', border: 'none', borderRadius: '0.375rem',
-              cursor: 'pointer', fontSize: '1rem'
+              padding: '0.5rem 1.5rem',
+              background: '#1d4ed8',
+              color: 'white',
+              border: 'none',
+              borderRadius: '0.375rem',
+              cursor: 'pointer',
+              fontSize: '1rem',
             }}
           >
             Refresh Page
@@ -64,18 +79,22 @@ const root = document.getElementById('root');
 ReactDOM.createRoot(root).render(
   <React.StrictMode>
     <ErrorBoundary>
-      <Suspense fallback={
-        <div
-          role="status"
-          aria-label="Loading application"
-          style={{
-            display: 'flex', alignItems: 'center',
-            justifyContent: 'center', minHeight: '100vh'
-          }}
-        >
-          Loading...
-        </div>
-      }>
+      <Suspense
+        fallback={
+          <div
+            role="status"
+            aria-label="Loading application"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              minHeight: '100vh',
+            }}
+          >
+            Loading...
+          </div>
+        }
+      >
         <BrowserRouter>
           <App />
         </BrowserRouter>

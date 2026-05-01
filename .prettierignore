@@ -1,0 +1,8 @@
+node_modules
+dist
+build
+coverage
+.github
+*.yaml
+*.yml
+nginx.conf

@@ -9,9 +9,10 @@ const PROJECT_ID = import.meta.env.VITE_FIREBASE_PROJECT_ID;
 /**
  * Logs an anonymous event to BigQuery via a secure Cloud Function proxy.
  * This keeps the data pipeline secure and follows Google's best practices.
- * 
+ *
  * @param {string} dataset - The target BigQuery dataset.
  * @param {Object} payload - The event data to be logged.
+ * @returns {Promise<void>}
  */
 export const logToBigQuery = async (dataset, payload) => {
   if (!PROJECT_ID) return;
@@ -28,25 +29,30 @@ export const logToBigQuery = async (dataset, payload) => {
           ...payload,
           timestamp: new Date().toISOString(),
           userAgent: navigator.userAgent,
-          platform: 'web_v1'
-        }
-      })
+          platform: 'web_v1',
+        },
+      }),
     });
 
     if (!response.ok) {
-      console.warn("BigQuery Logging Error:", response.statusText);
+      // eslint-disable-next-line no-console
+      console.warn('BigQuery Logging Error:', response.statusText);
     }
   } catch (error) {
     // Fail silently in production to not disrupt UX
     if (import.meta.env.DEV) {
-      console.error("Failed to reach BigQuery proxy:", error);
+      // eslint-disable-next-line no-console
+      console.error('Failed to reach BigQuery proxy:', error);
     }
   }
 };
 
 /**
  * Specifically logs election-related sentiment or quiz results for demographic insights.
+ * @param {string} type - The category of the insight (e.g., 'quiz_score', 'sentiment')
+ * @param {any} value - The data point to record
+ * @returns {Promise<void>}
  */
 export const logElectionInsight = (type, value) => {
-    return logToBigQuery('election_insights', { type, value });
+  return logToBigQuery('election_insights', { type, value });
 };

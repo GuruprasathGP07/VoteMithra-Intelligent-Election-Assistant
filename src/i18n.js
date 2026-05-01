@@ -14,20 +14,22 @@ const resources = {
   te: { translation: teTranslation },
   kn: { translation: knTranslation },
   hi: { translation: hiTranslation },
-  ml: { translation: mlTranslation }
+  ml: { translation: mlTranslation },
 };
 
 const savedLanguage = localStorage.getItem('voteMitra_lang') || 'en';
 
-i18n
-  .use(initReactI18next)
-  .init({
-    resources,
-    lng: savedLanguage,
-    fallbackLng: 'en',
-    interpolation: {
-      escapeValue: false
-    }
-  });
+i18n.use(initReactI18next).init({
+  resources,
+  lng: savedLanguage,
+  fallbackLng: 'en',
+  interpolation: {
+    escapeValue: false,
+  },
+});
+
+i18n.on('languageChanged', (lng) => {
+  document.documentElement.lang = lng;
+});
 
 export default i18n;

@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Chatbot from './components/Chatbot';
+import ErrorBoundary from './components/ErrorBoundary';
 
 // ✅ Lazy load all pages — each route loads only when visited
 const Home = lazy(() => import('./pages/Home'));
@@ -26,16 +27,16 @@ const Candidates = lazy(() => import('./pages/Candidates'));
  */
 const PageLoader = () => (
   <div
+    className="min-h-screen flex items-center justify-center"
+    aria-label="Loading page"
     role="status"
-    aria-label="Loading page content"
-    className="flex items-center justify-center min-h-[60vh]"
   >
-    <div className="flex flex-col items-center gap-3">
+    <div className="text-center">
       <div
-        className="w-12 h-12 rounded-full border-4 border-blue-200 border-t-blue-600 animate-spin"
-        aria-hidden="true"
+        className="w-10 h-10 border-4 border-blue-800 border-t-transparent
+                      rounded-full animate-spin mx-auto mb-3"
       />
-      <p className="text-sm text-gray-500 font-medium">Loading…</p>
+      <p className="text-gray-500 text-sm">Loading...</p>
     </div>
   </div>
 );
@@ -63,23 +64,138 @@ function App() {
       <Header />
 
       <main id="main-content" className="flex-grow pt-16 pb-9">
-        <Suspense fallback={<PageLoader />}>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/simulator" element={<ElectionSimulator />} />
-            <Route path="/evm" element={<EVMSimulator />} />
-            <Route path="/fakenews" element={<FakeNews />} />
-            <Route path="/protection" element={<Protection />} />
-            <Route path="/quiz" element={<Quiz />} />
-            <Route path="/locator" element={<Locator />} />
-            <Route path="/nomination" element={<Nomination />} />
-            <Route path="/timeline" element={<Timeline />} />
-            <Route path="/eligibility" element={<Eligibility />} />
-            <Route path="/faq" element={<FAQ />} />
-            <Route path="/guide" element={<Guidance />} />
-            <Route path="/candidates" element={<Candidates />} />
-          </Routes>
-        </Suspense>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <ErrorBoundary>
+                <Suspense fallback={<PageLoader />}>
+                  <Home />
+                </Suspense>
+              </ErrorBoundary>
+            }
+          />
+          <Route
+            path="/simulator"
+            element={
+              <ErrorBoundary>
+                <Suspense fallback={<PageLoader />}>
+                  <ElectionSimulator />
+                </Suspense>
+              </ErrorBoundary>
+            }
+          />
+          <Route
+            path="/evm"
+            element={
+              <ErrorBoundary>
+                <Suspense fallback={<PageLoader />}>
+                  <EVMSimulator />
+                </Suspense>
+              </ErrorBoundary>
+            }
+          />
+          <Route
+            path="/fakenews"
+            element={
+              <ErrorBoundary>
+                <Suspense fallback={<PageLoader />}>
+                  <FakeNews />
+                </Suspense>
+              </ErrorBoundary>
+            }
+          />
+          <Route
+            path="/protection"
+            element={
+              <ErrorBoundary>
+                <Suspense fallback={<PageLoader />}>
+                  <Protection />
+                </Suspense>
+              </ErrorBoundary>
+            }
+          />
+          <Route
+            path="/quiz"
+            element={
+              <ErrorBoundary>
+                <Suspense fallback={<PageLoader />}>
+                  <Quiz />
+                </Suspense>
+              </ErrorBoundary>
+            }
+          />
+          <Route
+            path="/locator"
+            element={
+              <ErrorBoundary>
+                <Suspense fallback={<PageLoader />}>
+                  <Locator />
+                </Suspense>
+              </ErrorBoundary>
+            }
+          />
+          <Route
+            path="/nomination"
+            element={
+              <ErrorBoundary>
+                <Suspense fallback={<PageLoader />}>
+                  <Nomination />
+                </Suspense>
+              </ErrorBoundary>
+            }
+          />
+          <Route
+            path="/timeline"
+            element={
+              <ErrorBoundary>
+                <Suspense fallback={<PageLoader />}>
+                  <Timeline />
+                </Suspense>
+              </ErrorBoundary>
+            }
+          />
+          <Route
+            path="/eligibility"
+            element={
+              <ErrorBoundary>
+                <Suspense fallback={<PageLoader />}>
+                  <Eligibility />
+                </Suspense>
+              </ErrorBoundary>
+            }
+          />
+          <Route
+            path="/faq"
+            element={
+              <ErrorBoundary>
+                <Suspense fallback={<PageLoader />}>
+                  <FAQ />
+                </Suspense>
+              </ErrorBoundary>
+            }
+          />
+          <Route
+            path="/guide"
+            element={
+              <ErrorBoundary>
+                <Suspense fallback={<PageLoader />}>
+                  <Guidance />
+                </Suspense>
+              </ErrorBoundary>
+            }
+          />
+          <Route
+            path="/candidates"
+            element={
+              <ErrorBoundary>
+                <Suspense fallback={<PageLoader />}>
+                  <Candidates />
+                </Suspense>
+              </ErrorBoundary>
+            }
+          />
+        </Routes>
       </main>
 
       <Chatbot />
