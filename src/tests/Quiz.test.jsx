@@ -26,7 +26,7 @@ describe('Quiz Page', () => {
     expect(screen.getByText(/What is the minimum age to vote in India\?/i)).toBeInTheDocument();
     
     // Click correct answer: 18 (index 1, so option B)
-    const optionB = screen.getByText(/B\) 18/i);
+    const optionB = screen.getByRole("radio", { name: /18/i });
     fireEvent.click(optionB);
     
     expect(screen.getByText(/Correct!/i)).toBeInTheDocument();
@@ -40,7 +40,7 @@ describe('Quiz Page', () => {
     fireEvent.click(screen.getByText(/Start Quiz/i));
     
     // Correct answer for Q1 is 18
-    fireEvent.click(screen.getByText(/B\) 18/i));
+    fireEvent.click(screen.getByRole("radio", { name: /18/i }));
     
     // Click Next
     fireEvent.click(screen.getByText(/Next Question/i));

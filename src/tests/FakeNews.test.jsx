@@ -13,9 +13,10 @@ describe('FakeNews Page', () => {
     render(<FakeNews />);
     
     // Swipe through the 3 cards to get to phase 2
-    for(let i=0; i<3; i++) {
+    for (let i = 0; i < 3; i++) {
       fireEvent.click(screen.getByLabelText('Mark as Fake'));
-      fireEvent.click(screen.getByText(/Next Message/i));
+      const btnText = i === 2 ? /Go to Custom AI Scanner/i : /Next Message/i;
+      fireEvent.click(screen.getByText(btnText));
     }
     
     // Now in Phase 2
@@ -26,9 +27,11 @@ describe('FakeNews Page', () => {
 
   it('verify analyze button exists in phase 2', () => {
     render(<FakeNews />);
-    for(let i=0; i<3; i++) {
+    // Swipe through the 3 cards to get to phase 2
+    for (let i = 0; i < 3; i++) {
       fireEvent.click(screen.getByLabelText('Mark as Fake'));
-      fireEvent.click(screen.getByText(/Next Message/i));
+      const btnText = i === 2 ? /Go to Custom AI Scanner/i : /Next Message/i;
+      fireEvent.click(screen.getByText(btnText));
     }
     
     expect(screen.getByText('Analyze with Gemini AI')).toBeInTheDocument();

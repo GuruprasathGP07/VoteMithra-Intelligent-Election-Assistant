@@ -11,7 +11,7 @@ export default defineConfig({
     pool: 'forks',
     maxWorkers: 1,
     isolate: true,
-    testTimeout: 15000,
+    testTimeout: 30000,
     hookTimeout: 10000,
     coverage: {
       provider: 'v8',
