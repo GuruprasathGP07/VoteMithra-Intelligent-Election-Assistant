@@ -1,4 +1,4 @@
-import { GoogleGenerativeAI } from '@google/generative-ai';
+﻿import { GoogleGenerativeAI } from '@google/generative-ai';
 import { logger } from './logger';
 import {
   RATE_LIMIT_MAX_CALLS,
@@ -15,8 +15,16 @@ export const rateLimiter = {
   calls: [],
   maxCalls: RATE_LIMIT_MAX_CALLS,
   windowMs: RATE_LIMIT_WINDOW_MS,
+  isAllowed() {
+    const now = Date.now();
+    this.calls = this.calls.filter((t) => now - t < this.windowMs);
+    if (this.calls.length >= this.maxCalls) return false;
+    this.calls.push(now);
+    return true;
+  },
+};
 
-// ─── Custom Error Classes ────────────────────────────────────────────────────
+// â”€â”€â”€ Custom Error Classes â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 /** Thrown when a network-level failure occurs (no internet, DNS failure). */
 export class NetworkError extends Error {
@@ -42,7 +50,7 @@ export class APIError extends Error {
   }
 }
 
-// ─── Initialisation ──────────────────────────────────────────────────────────
+// â”€â”€â”€ Initialisation â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 /** @type {GoogleGenerativeAI|undefined} */
 let genAI;
@@ -61,16 +69,16 @@ try {
   logger.error('Failed to initialize Gemini AI:', error);
 }
 
-// ─── Model Fallback Chain ────────────────────────────────────────────────────
+// â”€â”€â”€ Model Fallback Chain â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
-/** Ordered list of models to attempt for chat — falls back on 503. */
+/** Ordered list of models to attempt for chat â€” falls back on 503. */
 const CHAT_MODELS = [
   GEMINI_MODEL_PRIMARY,
   GEMINI_MODEL_FALLBACK_1,
   GEMINI_MODEL_FALLBACK_2,
 ];
 
-/** Ordered list of models to attempt for content analysis — falls back on 503. */
+/** Ordered list of models to attempt for content analysis â€” falls back on 503. */
 const ANALYSIS_MODELS = [
   GEMINI_MODEL_PRIMARY,
   GEMINI_MODEL_FALLBACK_1,
@@ -88,7 +96,7 @@ const isOverloaded = (err) =>
   err.message?.includes('high demand') ||
   err.message?.includes('Service Unavailable');
 
-// ─── Public API ──────────────────────────────────────────────────────────────
+// â”€â”€â”€ Public API â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 /**
  * Sends a message to the Gemini chatbot with full conversation history.
@@ -125,7 +133,7 @@ export const sendMessage = async (
     );
   }
 
-  // Gemini requires history to start with a 'user' message —
+  // Gemini requires history to start with a 'user' message â€”
   // strip any leading model turns from the welcome message.
   const formattedHistory = history
     .map((msg) => ({
@@ -160,7 +168,7 @@ export const sendMessage = async (
         isOverloaded(error) &&
         modelName !== CHAT_MODELS[CHAT_MODELS.length - 1]
       ) {
-        logger.warn(`${modelName} overloaded — trying next model…`);
+        logger.warn(`${modelName} overloaded â€” trying next modelâ€¦`);
         continue;
       }
 
@@ -200,7 +208,7 @@ export const sendMessage = async (
  *
  * @param {string} text - The news text or message to analyse.
  * @returns {Promise<{score: number, verdict: string, reasoning: string}>}
- *   score: 0 (fake) – 100 (safe), verdict: 'SAFE' | 'SUSPICIOUS' | 'FAKE'.
+ *   score: 0 (fake) â€“ 100 (safe), verdict: 'SAFE' | 'SUSPICIOUS' | 'FAKE'.
  * @throws {APIError} If the service is unavailable.
  * @throws {Error} If the input is too short.
  */
@@ -223,7 +231,7 @@ export const detectFakeNewsCloud = async (text) => {
 
   const prompt = `You are a fact-checking AI for Indian elections. Analyse the following text for misinformation.
 
-Return ONLY a valid JSON object with NO markdown, NO backticks, NO extra text — just raw JSON:
+Return ONLY a valid JSON object with NO markdown, NO backticks, NO extra text â€” just raw JSON:
 {
   "score": <number 0-100 where 0=completely fake, 100=completely safe>,
   "verdict": "<SAFE, SUSPICIOUS, or FAKE>",
@@ -249,7 +257,7 @@ Text to analyse: "${text}"`;
         isOverloaded(error) &&
         modelName !== ANALYSIS_MODELS[ANALYSIS_MODELS.length - 1]
       ) {
-        logger.warn(`${modelName} overloaded — trying next model…`);
+        logger.warn(`${modelName} overloaded â€” trying next modelâ€¦`);
         continue;
       }
 
@@ -264,7 +272,7 @@ Text to analyse: "${text}"`;
     }
   }
 
-  // Final safety net — never crash the UI
+  // Final safety net â€” never crash the UI
   return {
     score: 50,
     verdict: 'SUSPICIOUS',
