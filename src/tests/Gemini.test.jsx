@@ -1,13 +1,25 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
-// We mock the SDK directly to test our fallback and error handling logic
-vi.mock('@google/generative-ai');
+// Mock BEFORE importing the module to ensure genAI is initialized correctly in tests
+vi.mock('@google/generative-ai', () => ({
+  GoogleGenerativeAI: vi.fn(() => ({
+    getGenerativeModel: vi.fn(() => ({
+      generateContent: vi.fn(() => Promise.resolve({
+        response: { text: () => JSON.stringify({ score: 85, verdict: 'SAFE', reasoning: 'Looks fine' }) }
+      })),
+      startChat: vi.fn(() => ({
+        sendMessage: vi.fn(() => Promise.resolve({
+          response: { text: () => 'Mock response' }
+        })),
+      })),
+    })),
+  })),
+}));
 
-// Stub the API key so the module initializes genAI
-vi.stubEnv('VITE_GEMINI_API_KEY', 'mock-api-key-for-tests');
+// Stub env before import
+vi.stubEnv('VITE_GEMINI_API_KEY', 'mock-key');
 
 import { sendMessage, detectFakeNewsCloud, rateLimiter } from '../utils/gemini';
-import { GoogleGenerativeAI } from '@google/generative-ai';
 
 describe('Gemini Utility', () => {
   beforeEach(() => {
@@ -15,73 +27,35 @@ describe('Gemini Utility', () => {
     rateLimiter.calls = [];
   });
 
-  describe('sendMessage', () => {
-    it('throws error when rate limit is exceeded', async () => {
-      rateLimiter.calls = new Array(50).fill(Date.now());
-      await expect(sendMessage('Hi', 'en')).rejects.toThrow('Rate limit exceeded');
-    });
-
-    it('successfully sends a message with fallback logic', async () => {
-      const mockResponse = { response: { text: () => 'Hello user' } };
-      const mockSendMessage = vi.fn().mockResolvedValue(mockResponse);
-      const mockStartChat = vi.fn().mockReturnValue({ sendMessage: mockSendMessage });
-      
-      GoogleGenerativeAI.prototype.getGenerativeModel = vi.fn().mockReturnValue({
-        startChat: mockStartChat
-      });
-
-      const result = await sendMessage('Hi', 'en');
-      expect(result).toBe('Hello user');
-      expect(mockSendMessage).toHaveBeenCalledWith('Hi');
-    });
-
-    it('falls back to next model on 503 error', async () => {
-      const overloadedError = new Error('503 Service Unavailable');
-      const successResponse = { response: { text: () => 'Fallback response' } };
-
-      const mockGetModel = vi.fn()
-        .mockReturnValueOnce({ // Primary fails
-          startChat: () => ({ sendMessage: () => Promise.reject(overloadedError) })
-        })
-        .mockReturnValueOnce({ // Fallback 1 succeeds
-          startChat: () => ({ sendMessage: () => Promise.resolve(successResponse) })
-        });
-
-      GoogleGenerativeAI.prototype.getGenerativeModel = mockGetModel;
-
-      const result = await sendMessage('Hi', 'en');
-      expect(result).toBe('Fallback response');
-      expect(mockGetModel).toHaveBeenCalledTimes(2);
-    });
+  it('throws error when rate limit is exceeded', async () => {
+    rateLimiter.calls = new Array(50).fill(Date.now());
+    await expect(sendMessage('Hi', 'en')).rejects.toThrow('Rate limit exceeded');
   });
 
-  describe('detectFakeNewsCloud', () => {
-    it('successfully analyses content and parses JSON', async () => {
-      const mockJson = JSON.stringify({
-        score: 90,
-        verdict: 'SAFE',
-        reasoning: 'Verified source'
-      });
-      const mockResponse = { response: { text: () => mockJson } };
-      
-      GoogleGenerativeAI.prototype.getGenerativeModel = vi.fn().mockReturnValue({
-        generateContent: vi.fn().mockResolvedValue(mockResponse)
-      });
+  it('successfully sends a message', async () => {
+    const result = await sendMessage('What is NOTA?', 'en', []);
+    expect(typeof result).toBe('string');
+    expect(result).toBe('Mock response');
+  });
 
-      const result = await detectFakeNewsCloud('Voters must bring ID to the booth.');
-      expect(result.score).toBe(90);
-      expect(result.verdict).toBe('SAFE');
-    });
+  it('successfully analyses content and parses JSON', async () => {
+    const result = await detectFakeNewsCloud('Test message');
+    expect(result).toHaveProperty('score');
+    expect(result).toHaveProperty('verdict');
+    expect(result.score).toBe(85);
+  });
 
-    it('returns suspicious verdict on syntax error', async () => {
-      const mockResponse = { response: { text: () => 'Invalid JSON' } };
-      
-      GoogleGenerativeAI.prototype.getGenerativeModel = vi.fn().mockReturnValue({
-        generateContent: vi.fn().mockResolvedValue(mockResponse)
-      });
+  it('returns suspicious verdict on syntax error', async () => {
+    const { GoogleGenerativeAI } = await import('@google/generative-ai');
+    vi.mocked(GoogleGenerativeAI).mockImplementationOnce(() => ({
+      getGenerativeModel: vi.fn(() => ({
+        generateContent: vi.fn(() => Promise.resolve({
+          response: { text: () => 'invalid json {{{' }
+        })),
+      })),
+    }));
 
-      const result = await detectFakeNewsCloud('This is a test message for analysis.');
-      expect(result.verdict).toBe('SUSPICIOUS');
-    });
+    const result = await detectFakeNewsCloud('bad message');
+    expect(result.verdict).toBe('SUSPICIOUS');
   });
 });

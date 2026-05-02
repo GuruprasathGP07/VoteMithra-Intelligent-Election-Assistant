@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-const ProgressBar = ({ current, total, label }) => {
+const ProgressBar = ({ current = 0, total = 10, label = '' }) => {
   const progress = total > 0 ? (current / total) * 100 : 0;
 
   return (
@@ -20,10 +20,6 @@ ProgressBar.propTypes = {
   current: PropTypes.number.isRequired,
   total: PropTypes.number.isRequired,
   label: PropTypes.string,
-};
-
-ProgressBar.defaultProps = {
-  label: '',
 };
 
 export default ProgressBar;
