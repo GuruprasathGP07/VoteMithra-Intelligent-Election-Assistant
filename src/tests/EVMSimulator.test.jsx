@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest';
+﻿import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import EVMSimulator from '../pages/EVMSimulator';
 
@@ -22,6 +22,6 @@ describe('EVMSimulator Page', () => {
 
   it('verify NOTA button is present', () => {
     render(<EVMSimulator />);
-    expect(screen.getByText(/NOTA — None of the Above/i)).toBeInTheDocument();
+    expect(screen.getByText(/NOTA â€” None of the Above/i)).toBeInTheDocument();
   });
 });

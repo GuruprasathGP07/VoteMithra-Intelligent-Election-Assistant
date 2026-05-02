@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+﻿import { describe, it, expect } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import Eligibility from '../pages/Eligibility';
 
@@ -39,7 +39,7 @@ describe('Eligibility Page', () => {
     );
 
     fireEvent.click(screen.getByText('Check My Eligibility'));
-    expect(screen.getByText('You are Eligible! ✓')).toBeInTheDocument();
+    expect(screen.getByText('You are Eligible! âœ“')).toBeInTheDocument();
   });
 
   it('shows underage message for DOB 5 years ago', () => {
