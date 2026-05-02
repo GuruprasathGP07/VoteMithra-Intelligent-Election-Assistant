@@ -1,5 +1,6 @@
 import { describe, it, expect, vi } from 'vitest';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import FakeNews from '../pages/FakeNews';
 
 // Mock gemini utility at the very top
@@ -22,14 +23,15 @@ describe('FakeNews Page', () => {
     ).toBeInTheDocument();
   });
 
-  it('verifies textarea has maxLength of 2000 in phase 2', () => {
+  it('verifies textarea has maxLength of 2000 in phase 2', async () => {
+    const user = userEvent.setup();
     render(<FakeNews />);
 
     // Swipe through the 3 cards to get to phase 2
     for (let i = 0; i < 3; i++) {
-      fireEvent.click(screen.getByLabelText('Mark as Fake'));
+      await user.click(screen.getByLabelText('Mark as Fake'));
       const btnText = i === 2 ? /Go to Custom AI Scanner/i : /Next Message/i;
-      fireEvent.click(screen.getByText(btnText));
+      await user.click(screen.getByText(btnText));
     }
 
     // Now in Phase 2
@@ -39,20 +41,25 @@ describe('FakeNews Page', () => {
   });
 
   it('detects misinformation and shows result', async () => {
+    const user = userEvent.setup();
     render(<FakeNews />);
     
     // Move to Phase 2
     for (let i = 0; i < 3; i++) {
-      fireEvent.click(screen.getByLabelText('Mark as Fake'));
+      await user.click(screen.getByLabelText('Mark as Fake'));
       const btnText = i === 2 ? /Go to Custom AI Scanner/i : /Next Message/i;
-      fireEvent.click(screen.getByText(btnText));
+      await user.click(screen.getByText(btnText));
     }
 
     const textarea = screen.getByPlaceholderText(/Example: ðŸš¨ Breaking/i);
     const button = screen.getByRole('button', { name: /Analyze with Gemini AI/i });
 
-    fireEvent.change(textarea, { target: { value: 'Fake news content' } });
-    fireEvent.click(button);
+    await user.type(textarea, 'Fake news content');
+    
+    // The button should now be enabled
+    expect(button).not.toBeDisabled();
+    
+    await user.click(button);
 
     await waitFor(() => {
       expect(screen.getByText('FAKE')).toBeDefined();
@@ -61,6 +68,7 @@ describe('FakeNews Page', () => {
   });
 
   it('handles API errors gracefully', async () => {
+    const user = userEvent.setup();
     const { detectFakeNewsCloud } = await import('../utils/gemini');
     vi.mocked(detectFakeNewsCloud).mockRejectedValueOnce(new Error('API Failed'));
 
@@ -68,16 +76,16 @@ describe('FakeNews Page', () => {
     
     // Move to Phase 2
     for (let i = 0; i < 3; i++) {
-      fireEvent.click(screen.getByLabelText('Mark as Fake'));
+      await user.click(screen.getByLabelText('Mark as Fake'));
       const btnText = i === 2 ? /Go to Custom AI Scanner/i : /Next Message/i;
-      fireEvent.click(screen.getByText(btnText));
+      await user.click(screen.getByText(btnText));
     }
 
     const textarea = screen.getByPlaceholderText(/Example: ðŸš¨ Breaking/i);
     const button = screen.getByRole('button', { name: /Analyze with Gemini AI/i });
 
-    fireEvent.change(textarea, { target: { value: 'Some news content' } });
-    fireEvent.click(button);
+    await user.type(textarea, 'Some news content');
+    await user.click(button);
 
     await waitFor(() => {
       expect(screen.getByText(/Could not complete/i)).toBeDefined();
@@ -85,6 +93,7 @@ describe('FakeNews Page', () => {
   });
 
   it('handles JSON parsing syntax errors', async () => {
+    const user = userEvent.setup();
     const { detectFakeNewsCloud } = await import('../utils/gemini');
     // Simulate a successful API call but with a malformed response that results in SUSPICIOUS verdict
     vi.mocked(detectFakeNewsCloud).mockResolvedValueOnce({
@@ -97,31 +106,19 @@ describe('FakeNews Page', () => {
     
     // Move to Phase 2
     for (let i = 0; i < 3; i++) {
-      fireEvent.click(screen.getByLabelText('Mark as Fake'));
+      await user.click(screen.getByLabelText('Mark as Fake'));
       const btnText = i === 2 ? /Go to Custom AI Scanner/i : /Next Message/i;
-      fireEvent.click(screen.getByText(btnText));
+      await user.click(screen.getByText(btnText));
     }
 
     const textarea = screen.getByPlaceholderText(/Example: ðŸš¨ Breaking/i);
     const button = screen.getByRole('button', { name: /Analyze with Gemini AI/i });
 
-    fireEvent.change(textarea, { target: { value: 'Malformed response test' } });
-    fireEvent.click(button);
+    await user.type(textarea, 'Malformed response test');
+    await user.click(button);
 
     await waitFor(() => {
       expect(screen.getByText('SUSPICIOUS')).toBeDefined();
     }, { timeout: 10000 });
-  });
-
-  it('verify analyze button exists in phase 2', () => {
-    render(<FakeNews />);
-    // Swipe through the 3 cards to get to phase 2
-    for (let i = 0; i < 3; i++) {
-      fireEvent.click(screen.getByLabelText('Mark as Fake'));
-      const btnText = i === 2 ? /Go to Custom AI Scanner/i : /Next Message/i;
-      fireEvent.click(screen.getByText(btnText));
-    }
-
-    expect(screen.getByText('Analyze with Gemini AI')).toBeInTheDocument();
   });
 });

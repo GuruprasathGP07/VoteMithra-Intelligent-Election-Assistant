@@ -16,9 +16,6 @@ vi.mock('@google/generative-ai', () => ({
   })),
 }));
 
-// Stub env before import
-vi.stubEnv('VITE_GEMINI_API_KEY', 'mock-key');
-
 import { sendMessage, detectFakeNewsCloud, rateLimiter } from '../utils/gemini';
 
 describe('Gemini Utility', () => {

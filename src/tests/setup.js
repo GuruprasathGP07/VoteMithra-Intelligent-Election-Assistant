@@ -6,6 +6,9 @@ afterEach(() => {
   cleanup();
 });
 
+// Globals
+vi.stubEnv('VITE_GEMINI_API_KEY', 'mock-key');
+
 //
 vi.mock('firebase/app', () => ({
   initializeApp: vi.fn(() => ({})),
