@@ -16,7 +16,6 @@ export default defineConfig({
     exclude: [
       'node_modules',
       'dist',
-      '**/Chatbot.test.jsx',
     ],
     coverage: {
       provider: 'v8',
@@ -29,7 +28,6 @@ export default defineConfig({
       },
       exclude: [
         'node_modules',
-        '**/Chatbot.test.jsx',
         'src/assets/**',
         '**/*.config.*',
       ],

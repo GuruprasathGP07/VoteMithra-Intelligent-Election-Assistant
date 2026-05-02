@@ -34,6 +34,7 @@ const LanguageSwitcher = ({ currentLang, onChange }) => {
         <select
           value={activeLang}
           onChange={changeLanguage}
+          aria-label="Select Interface Language"
           className="bg-transparent text-ink text-sm font-bold focus:outline-none cursor-pointer"
         >
           {languages.map((l) => (

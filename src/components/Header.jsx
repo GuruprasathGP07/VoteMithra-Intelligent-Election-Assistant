@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { ROUTES } from '../utils/constants';
 import LanguageSwitcher from './LanguageSwitcher';
 
-const Header = ({ currentLanguage, onLanguageChange }) => {
+const Header = ({ currentLanguage = '', onLanguageChange = () => {} }) => {
   const { t, i18n } = useTranslation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
@@ -135,11 +135,6 @@ const Header = ({ currentLanguage, onLanguageChange }) => {
 Header.propTypes = {
   currentLanguage: PropTypes.string,
   onLanguageChange: PropTypes.func,
-};
-
-Header.defaultProps = {
-  currentLanguage: '',
-  onLanguageChange: () => {},
 };
 
 export default Header;

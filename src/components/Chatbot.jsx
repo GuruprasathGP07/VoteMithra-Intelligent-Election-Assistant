@@ -17,10 +17,10 @@ import { logger } from '../utils/logger';
  * Features: Multilingual support, sanitization, and session logging.
  */
 const Chatbot = ({
-  language: propLanguage,
-  userId,
-  isOpen: propIsOpen,
-  onClose,
+  language: propLanguage = 'en',
+  userId = null,
+  isOpen: propIsOpen = false,
+  onClose = () => {},
 }) => {
   const { t, i18n } = useTranslation();
   const [isOpen, setIsOpen] = useState(propIsOpen || false);
@@ -300,13 +300,6 @@ Chatbot.propTypes = {
   userId: PropTypes.string,
   isOpen: PropTypes.bool,
   onClose: PropTypes.func,
-};
-
-Chatbot.defaultProps = {
-  language: 'en',
-  userId: null,
-  isOpen: false,
-  onClose: () => {},
 };
 
 export default Chatbot;

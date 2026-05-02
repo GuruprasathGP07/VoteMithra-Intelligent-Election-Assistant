@@ -1,8 +1,10 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 
+// Mock gemini utility with the correct function name
 vi.mock('../utils/gemini', () => ({
-  askGemini: vi.fn().mockResolvedValue('Mock response'),
+  sendMessage: vi.fn().mockResolvedValue('Mock AI response'),
+  rateLimiter: { isAllowed: () => true },
 }));
 
 vi.mock('react-i18next', () => ({
@@ -12,17 +14,11 @@ vi.mock('react-i18next', () => ({
   }),
 }));
 
-vi.mock('firebase/auth', () => ({
-  getAuth: vi.fn(),
-  signInAnonymously: vi.fn().mockResolvedValue({}),
-  onAuthStateChanged: vi.fn(() => () => {}),
-}));
-
-vi.mock('firebase/database', () => ({
-  getDatabase: vi.fn(),
+vi.mock('../services/firebaseService', () => ({
+  isFirebaseConfigured: true,
+  db: {},
   ref: vi.fn(),
   push: vi.fn().mockResolvedValue({}),
-  onValue: vi.fn(() => () => {}),
 }));
 
 describe('Chatbot Component', () => {
@@ -30,14 +26,32 @@ describe('Chatbot Component', () => {
     vi.clearAllMocks();
   });
 
-  it('chatbot module exists', { timeout: 10000 }, async () => {
-    const mod = await import('../components/Chatbot');
-    expect(mod.default).toBeDefined();
+  it('renders chatbot toggle button', async () => {
+    const { default: Chatbot } = await import('../components/Chatbot');
+    render(<Chatbot isOpen={false} />);
+    expect(screen.getByLabelText(/Open AI Voter Coach/i)).toBeDefined();
   });
 
-  it('chatbot renders without crash', { timeout: 10000 }, async () => {
+  it('opens chat window when toggled', async () => {
     const { default: Chatbot } = await import('../components/Chatbot');
-    const { container } = render(<Chatbot language="en" />);
-    expect(container).toBeTruthy();
+    render(<Chatbot isOpen={false} />);
+    const button = screen.getByLabelText(/Open AI Voter Coach/i);
+    fireEvent.click(button);
+    expect(screen.getByRole('dialog')).toBeDefined();
+  });
+
+  it('sends a message and displays AI response', async () => {
+    const { default: Chatbot } = await import('../components/Chatbot');
+    render(<Chatbot isOpen={true} />);
+    
+    const input = screen.getByLabelText(/Type your election question/i);
+    const sendButton = screen.getByLabelText(/Send message/i);
+
+    fireEvent.change(input, { target: { value: 'How do I register?' } });
+    fireEvent.click(sendButton);
+
+    await waitFor(() => {
+      expect(screen.getByText('Mock AI response')).toBeDefined();
+    });
   });
 });

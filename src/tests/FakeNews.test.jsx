@@ -27,6 +27,57 @@ describe('FakeNews Page', () => {
     expect(textarea).toHaveAttribute('maxLength', '2000');
   });
 
+  it('detects misinformation and shows result', async () => {
+    render(<FakeNews />);
+    const textarea = screen.getByPlaceholderText(/Paste the message/i);
+    const button = screen.getByRole('button', { name: /Analyse Message/i });
+
+    fireEvent.change(textarea, { target: { value: 'Fake news content' } });
+    fireEvent.click(button);
+
+    await waitFor(() => {
+      expect(screen.getByText('FAKE')).toBeDefined();
+      expect(screen.getByText('This is fake.')).toBeDefined();
+    });
+  });
+
+  it('handles API errors gracefully', async () => {
+    const { detectFakeNewsCloud } = await import('../utils/gemini');
+    detectFakeNewsCloud.mockRejectedValueOnce(new Error('API Failed'));
+
+    render(<FakeNews />);
+    const textarea = screen.getByPlaceholderText(/Paste the message/i);
+    const button = screen.getByRole('button', { name: /Analyse Message/i });
+
+    fireEvent.change(textarea, { target: { value: 'Some news content' } });
+    fireEvent.click(button);
+
+    await waitFor(() => {
+      expect(screen.getByText(/Could not complete/i)).toBeDefined();
+    });
+  });
+
+  it('handles JSON parsing syntax errors', async () => {
+    const { detectFakeNewsCloud } = await import('../utils/gemini');
+    // Simulate a successful API call but with a malformed response that results in SUSPICIOUS verdict
+    detectFakeNewsCloud.mockResolvedValueOnce({
+      score: 50,
+      verdict: 'SUSPICIOUS',
+      reasoning: 'Could not complete full analysis.'
+    });
+
+    render(<FakeNews />);
+    const textarea = screen.getByPlaceholderText(/Paste the message/i);
+    const button = screen.getByRole('button', { name: /Analyse Message/i });
+
+    fireEvent.change(textarea, { target: { value: 'Malformed response test' } });
+    fireEvent.click(button);
+
+    await waitFor(() => {
+      expect(screen.getByText('SUSPICIOUS')).toBeDefined();
+    });
+  });
+
   it('verify analyze button exists in phase 2', () => {
     render(<FakeNews />);
     // Swipe through the 3 cards to get to phase 2
