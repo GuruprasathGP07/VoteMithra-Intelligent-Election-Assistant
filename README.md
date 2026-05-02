@@ -18,8 +18,7 @@ ECI emergency helplines, and a full Google Cloud deployment
 into a single civic platform.
 
 ➡️ See [ALIGNMENT.md](./ALIGNMENT.md) for detailed mapping.
-
-🌐 **Live Demo:** https://vote-mithra-917825806061.us-central1.run.app  
+🌐 **Live Demo:** https://vote-mithra-xpe7geunqq-uc.a.run.app
 💻 **GitHub:** https://github.com/GuruprasathGP07/VoteMithra-Intelligent-Election-Assistant  
 ⚡ **Built with:** Google Antigravity (intent-driven development)
 
