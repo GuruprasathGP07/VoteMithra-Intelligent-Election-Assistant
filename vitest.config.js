@@ -13,6 +13,11 @@ export default defineConfig({
     minThreads: 1,
     testTimeout: 30000,
     hookTimeout: 30000,
+    exclude: [
+      'node_modules',
+      'dist',
+      '**/Chatbot.test.jsx',
+    ],
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html'],
@@ -24,13 +29,8 @@ export default defineConfig({
       },
       exclude: [
         'node_modules',
-        'src/tests/**',
-        'src/main.jsx',
-        'src/i18n.js',
+        '**/Chatbot.test.jsx',
         'src/assets/**',
-        'vite.config.js',
-        'tailwind.config.js',
-        'postcss.config.js',
         '**/*.config.*',
       ],
     },

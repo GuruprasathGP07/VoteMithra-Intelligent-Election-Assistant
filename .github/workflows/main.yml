@@ -18,7 +18,9 @@ jobs:
           cache: 'npm'
       - run: npm install
       - name: Run Unit Tests
-        run: npm run test:coverage
+        run: node --max-old-space-size=512 node_modules/.bin/vitest --run
+        env:
+          NODE_OPTIONS: --max-old-space-size=512
       - name: Upload Test Results
         if: always()
         uses: actions/upload-artifact@v4
