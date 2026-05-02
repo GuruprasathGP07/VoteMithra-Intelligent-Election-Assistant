@@ -1,12 +1,13 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-/**
- * @vitest-environment node
- */
-import { sendMessage, detectFakeNewsCloud, rateLimiter } from '../utils/gemini';
-import { GoogleGenerativeAI } from '@google/generative-ai';
 
 // We mock the SDK directly to test our fallback and error handling logic
 vi.mock('@google/generative-ai');
+
+// Stub the API key so the module initializes genAI
+vi.stubEnv('VITE_GEMINI_API_KEY', 'mock-api-key-for-tests');
+
+import { sendMessage, detectFakeNewsCloud, rateLimiter } from '../utils/gemini';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 
 describe('Gemini Utility', () => {
   beforeEach(() => {

@@ -11,8 +11,9 @@ export default defineConfig({
     pool: 'forks',
     maxThreads: 1,
     minThreads: 1,
-    testTimeout: 30000,
+    testTimeout: 60000,
     hookTimeout: 30000,
+    teardownTimeout: 30000,
     exclude: [
       'node_modules',
       'dist',

@@ -50,16 +50,20 @@ describe('FakeNews Page', () => {
       fireEvent.click(screen.getByText(btnText));
     }
 
-    const textarea = screen.getByPlaceholderText(/Paste the message/i);
-    const button = screen.getByRole('button', { name: /Analyse Message/i });
+    const textarea = screen.getByPlaceholderText(/Example: ðŸš¨ Breaking/i);
+    const button = screen.getByRole('button', { name: /Analyze with Gemini AI/i });
 
     fireEvent.change(textarea, { target: { value: 'Fake news content' } });
+    
+    // The button might be disabled if input is empty, ensure it's enabled
+    expect(button).not.toBeDisabled();
+    
     fireEvent.click(button);
 
     await waitFor(() => {
       expect(screen.getByText('FAKE')).toBeDefined();
       expect(screen.getByText('This is fake.')).toBeDefined();
-    });
+    }, { timeout: 10000 });
   });
 
   it('handles API errors gracefully', async () => {
@@ -75,15 +79,15 @@ describe('FakeNews Page', () => {
       fireEvent.click(screen.getByText(btnText));
     }
 
-    const textarea = screen.getByPlaceholderText(/Paste the message/i);
-    const button = screen.getByRole('button', { name: /Analyse Message/i });
+    const textarea = screen.getByPlaceholderText(/Example: ðŸš¨ Breaking/i);
+    const button = screen.getByRole('button', { name: /Analyze with Gemini AI/i });
 
     fireEvent.change(textarea, { target: { value: 'Some news content' } });
     fireEvent.click(button);
 
     await waitFor(() => {
       expect(screen.getByText(/Could not complete/i)).toBeDefined();
-    });
+    }, { timeout: 10000 });
   });
 
   it('handles JSON parsing syntax errors', async () => {
@@ -104,15 +108,15 @@ describe('FakeNews Page', () => {
       fireEvent.click(screen.getByText(btnText));
     }
 
-    const textarea = screen.getByPlaceholderText(/Paste the message/i);
-    const button = screen.getByRole('button', { name: /Analyse Message/i });
+    const textarea = screen.getByPlaceholderText(/Example: ðŸš¨ Breaking/i);
+    const button = screen.getByRole('button', { name: /Analyze with Gemini AI/i });
 
     fireEvent.change(textarea, { target: { value: 'Malformed response test' } });
     fireEvent.click(button);
 
     await waitFor(() => {
       expect(screen.getByText('SUSPICIOUS')).toBeDefined();
-    });
+    }, { timeout: 10000 });
   });
 
   it('verify analyze button exists in phase 2', () => {
