@@ -5,6 +5,8 @@ import App from './App.jsx';
 import './index.css';
 import './i18n';
 
+import { logger } from './utils/logger';
+
 /**
  * Global Error Boundary — catches unhandled React render errors
  * and displays a user-friendly fallback instead of a blank screen.
@@ -20,9 +22,7 @@ class ErrorBoundary extends Component {
   }
 
   componentDidCatch(error, info) {
-    if (import.meta.env.DEV) {
-      console.error('[ErrorBoundary] Caught error:', error, info);
-    }
+    logger.error('[ErrorBoundary] Caught error:', error, info);
   }
 
   render() {

@@ -3,6 +3,7 @@ import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
 import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import { logBoothSearch } from '../utils/analytics';
+import { logger } from '../utils/logger';
 
 const MAPS_API_KEY = import.meta.env.VITE_MAPS_API_KEY;
 
@@ -53,7 +54,7 @@ const Locator = () => {
           },
         ]);
       } else {
-        alert('Location not found for this PIN code.');
+        logger.warn('Location not found for this PIN code.');
       }
       setSearching(false);
     });
@@ -182,6 +183,8 @@ const Locator = () => {
   );
 };
 
-Locator.propTypes = {};
+Locator.propTypes = {
+  // Locator page props
+};
 
 export default Locator;

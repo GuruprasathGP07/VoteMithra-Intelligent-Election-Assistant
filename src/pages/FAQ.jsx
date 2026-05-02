@@ -47,6 +47,8 @@ const FAQ = () => {
   );
 };
 
-FAQ.propTypes = {};
+FAQ.propTypes = {
+  // FAQ page props
+};
 
 export default FAQ;

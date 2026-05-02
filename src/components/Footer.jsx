@@ -90,6 +90,8 @@ const Footer = () => {
   );
 };
 
-Footer.propTypes = {};
+Footer.propTypes = {
+  // Footer props
+};
 
 export default Footer;

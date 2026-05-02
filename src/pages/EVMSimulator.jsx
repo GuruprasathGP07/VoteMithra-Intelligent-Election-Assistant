@@ -246,6 +246,8 @@ const EVMSimulator = () => {
   );
 };
 
-EVMSimulator.propTypes = {};
+EVMSimulator.propTypes = {
+  // EVM simulator props
+};
 
 export default EVMSimulator;

@@ -1,3 +1,5 @@
+import { logger } from '../utils/logger';
+
 const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
 
 /**
@@ -36,14 +38,12 @@ export const callGeminiAPI = async (promptText, systemInstruction) => {
 
     const data = await response.json();
     if (data.error) {
-      // eslint-disable-next-line no-console
-      console.error('Gemini API Error:', data.error);
+      logger.error('Gemini API Error:', data.error);
       throw new Error(data.error.message);
     }
     return data.candidates[0].content.parts[0].text;
   } catch (err) {
-    // eslint-disable-next-line no-console
-    console.error('Gemini Service Error:', err);
+    logger.error('Gemini Service Error:', err);
     throw err;
   }
 };
@@ -84,14 +84,12 @@ export const chatWithGemini = async (chatHistory, systemInstruction) => {
 
     const data = await response.json();
     if (data.error) {
-      // eslint-disable-next-line no-console
-      console.error('Gemini Chat Error:', data.error);
+      logger.error('Gemini Chat Error:', data.error);
       throw new Error(data.error.message);
     }
     return data.candidates[0].content.parts[0].text;
   } catch (err) {
-    // eslint-disable-next-line no-console
-    console.error('Gemini Chat connectivity problem:', err);
+    logger.error('Gemini Chat connectivity problem:', err);
     throw err;
   }
 };

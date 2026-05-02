@@ -208,6 +208,8 @@ const Eligibility = () => {
   );
 };
 
-Eligibility.propTypes = {};
+Eligibility.propTypes = {
+  // Eligibility checker props
+};
 
 export default Eligibility;

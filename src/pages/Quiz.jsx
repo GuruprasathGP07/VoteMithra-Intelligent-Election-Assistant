@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import html2canvas from 'html2canvas';
 import ProgressBar from '../components/ProgressBar';
 import { logQuizStarted, logQuizCompleted } from '../utils/analytics';
+import { logger } from '../utils/logger';
 
 const Quiz = () => {
   const [started, setStarted] = useState(false);
@@ -37,7 +38,7 @@ const Quiz = () => {
           url: window.location.href,
         });
       } catch (err) {
-        console.error('Error sharing:', err);
+        logger.error('Error sharing:', err);
       }
     } else {
       const url = `https://wa.me/?text=${encodeURIComponent(text + ' ' + window.location.href)}`;
@@ -357,6 +358,8 @@ const Quiz = () => {
   );
 };
 
-Quiz.propTypes = {};
+Quiz.propTypes = {
+  // Quiz page props
+};
 
 export default Quiz;

@@ -44,6 +44,8 @@ const isFirebaseConfigured =
   Boolean(firebaseConfig.apiKey) &&
   firebaseConfig.apiKey !== 'YOUR_FIREBASE_API_KEY';
 
+import { logger } from '../utils/logger';
+
 if (isFirebaseConfigured) {
   // Reuse existing app instance — prevents "duplicate-app" crash
   // when this module is imported in multiple places.
@@ -61,9 +63,7 @@ if (isFirebaseConfigured) {
       }
     })
     .catch((err) => {
-      if (import.meta.env.DEV) {
-        console.warn('Firebase Analytics not supported:', err);
-      }
+      logger.warn('Firebase Analytics not supported:', err);
     });
 }
 

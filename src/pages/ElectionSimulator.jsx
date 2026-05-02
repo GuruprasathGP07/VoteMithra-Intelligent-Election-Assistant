@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { simulatorSteps } from '../data/simulatorSteps';
 import ProgressBar from '../components/ProgressBar';
+import { ROUTES } from '../utils/constants';
 
 const ElectionSimulator = () => {
   const [userName, setUserName] = useState('');
@@ -306,6 +307,7 @@ const ElectionSimulator = () => {
                     <button
                       className="w-6 h-4 bg-blue-500 rounded-sm hover:scale-110 active:scale-95 transition-transform"
                       onClick={nextStep}
+                      aria-label={`Vote for candidate ${i}`}
                     />
                   </div>
                 ))}
@@ -351,7 +353,7 @@ const ElectionSimulator = () => {
               <div className="text-2xl font-black text-blue-main">
                 Score: {score}/100
               </div>
-              <button className="btn-primary" onClick={() => navigate('/quiz')}>
+              <button className="btn-primary" onClick={() => navigate(ROUTES.QUIZ)}>
                 Claim Your Certificate
               </button>
             </div>
@@ -377,6 +379,8 @@ const ElectionSimulator = () => {
   );
 };
 
-ElectionSimulator.propTypes = {};
+ElectionSimulator.propTypes = {
+  // Simulator props
+};
 
 export default ElectionSimulator;

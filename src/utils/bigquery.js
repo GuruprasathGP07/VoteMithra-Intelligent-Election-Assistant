@@ -1,3 +1,5 @@
+import { logger } from './logger';
+
 /**
  * Google BigQuery Analytics Utility
  * Provides advanced telemetry for election insight gathering.
@@ -30,20 +32,17 @@ export const logToBigQuery = async (dataset, payload) => {
           timestamp: new Date().toISOString(),
           userAgent: navigator.userAgent,
           platform: 'web_v1',
+          source: 'VoteMithra_AI',
         },
       }),
     });
 
     if (!response.ok) {
-      // eslint-disable-next-line no-console
-      console.warn('BigQuery Logging Error:', response.statusText);
+      logger.warn('BigQuery Logging Error:', response.statusText);
     }
   } catch (error) {
     // Fail silently in production to not disrupt UX
-    if (import.meta.env.DEV) {
-      // eslint-disable-next-line no-console
-      console.error('Failed to reach BigQuery proxy:', error);
-    }
+    logger.error('Failed to reach BigQuery proxy:', error);
   }
 };
 

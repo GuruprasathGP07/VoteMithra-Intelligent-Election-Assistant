@@ -5,6 +5,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import Chatbot from './components/Chatbot';
 import ErrorBoundary from './components/ErrorBoundary';
+import { ROUTES } from './utils/constants';
 
 // ✅ Lazy load all pages — each route loads only when visited
 const Home = lazy(() => import('./pages/Home'));
@@ -53,20 +54,12 @@ function App() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      {/* Skip-to-content link for keyboard and screen-reader users */}
-      <a
-        href="#main-content"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[9999] focus:bg-white focus:px-4 focus:py-2 focus:rounded focus:shadow-lg focus:text-blue-700 focus:font-semibold"
-      >
-        Skip to main content
-      </a>
-
       <Header />
 
-      <main id="main-content" className="flex-grow pt-16 pb-9">
+      <div className="flex-grow pt-16 pb-9">
         <Routes>
           <Route
-            path="/"
+            path={ROUTES.HOME}
             element={
               <ErrorBoundary>
                 <Suspense fallback={<PageLoader />}>
@@ -76,7 +69,7 @@ function App() {
             }
           />
           <Route
-            path="/simulator"
+            path={ROUTES.SIMULATOR}
             element={
               <ErrorBoundary>
                 <Suspense fallback={<PageLoader />}>
@@ -86,7 +79,7 @@ function App() {
             }
           />
           <Route
-            path="/evm"
+            path={ROUTES.EVM}
             element={
               <ErrorBoundary>
                 <Suspense fallback={<PageLoader />}>
@@ -96,7 +89,7 @@ function App() {
             }
           />
           <Route
-            path="/fakenews"
+            path={ROUTES.FAKENEWS}
             element={
               <ErrorBoundary>
                 <Suspense fallback={<PageLoader />}>
@@ -106,7 +99,7 @@ function App() {
             }
           />
           <Route
-            path="/protection"
+            path={ROUTES.LAWS}
             element={
               <ErrorBoundary>
                 <Suspense fallback={<PageLoader />}>
@@ -116,7 +109,7 @@ function App() {
             }
           />
           <Route
-            path="/quiz"
+            path={ROUTES.QUIZ}
             element={
               <ErrorBoundary>
                 <Suspense fallback={<PageLoader />}>
@@ -126,7 +119,7 @@ function App() {
             }
           />
           <Route
-            path="/locator"
+            path={ROUTES.LOCATOR}
             element={
               <ErrorBoundary>
                 <Suspense fallback={<PageLoader />}>
@@ -136,7 +129,7 @@ function App() {
             }
           />
           <Route
-            path="/nomination"
+            path={ROUTES.NOMINATION}
             element={
               <ErrorBoundary>
                 <Suspense fallback={<PageLoader />}>
@@ -146,7 +139,7 @@ function App() {
             }
           />
           <Route
-            path="/timeline"
+            path={ROUTES.TIMELINE}
             element={
               <ErrorBoundary>
                 <Suspense fallback={<PageLoader />}>
@@ -156,7 +149,7 @@ function App() {
             }
           />
           <Route
-            path="/eligibility"
+            path={ROUTES.ELIGIBILITY}
             element={
               <ErrorBoundary>
                 <Suspense fallback={<PageLoader />}>
@@ -166,7 +159,7 @@ function App() {
             }
           />
           <Route
-            path="/faq"
+            path={ROUTES.FAQ}
             element={
               <ErrorBoundary>
                 <Suspense fallback={<PageLoader />}>
@@ -176,7 +169,7 @@ function App() {
             }
           />
           <Route
-            path="/guide"
+            path={ROUTES.GUIDE}
             element={
               <ErrorBoundary>
                 <Suspense fallback={<PageLoader />}>
@@ -186,7 +179,7 @@ function App() {
             }
           />
           <Route
-            path="/candidates"
+            path={ROUTES.CANDIDATES}
             element={
               <ErrorBoundary>
                 <Suspense fallback={<PageLoader />}>
@@ -196,7 +189,7 @@ function App() {
             }
           />
         </Routes>
-      </main>
+      </div>
 
       <Chatbot />
       <Footer />
@@ -213,3 +206,4 @@ function App() {
 }
 
 export default App;
+

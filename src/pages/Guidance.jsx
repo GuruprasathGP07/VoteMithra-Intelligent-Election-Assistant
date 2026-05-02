@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import PropTypes from 'prop-types';
+import { ROUTES } from '../utils/constants';
 
 const Guidance = () => {
   const { t } = useTranslation();
@@ -64,7 +64,7 @@ const Guidance = () => {
         </div>
         <div className="max-w-5xl mx-auto space-y-4 relative z-10">
           <Link
-            to="/"
+            to={ROUTES.HOME}
             className="inline-flex items-center gap-2 text-blue-pale font-bold hover:text-white transition-colors"
           >
             <span className="material-icons text-sm">arrow_back</span>{' '}
@@ -266,6 +266,8 @@ const Guidance = () => {
   );
 };
 
-Guidance.propTypes = {};
+Guidance.propTypes = {
+  // Guidance page props
+};
 
 export default Guidance;

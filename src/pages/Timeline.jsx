@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { logTimelineViewed } from '../utils/analytics';
+import { ROUTES } from '../utils/constants';
 
 const Timeline = () => {
   const { t } = useTranslation();
@@ -57,7 +58,7 @@ const Timeline = () => {
     >
       <div className="flex justify-start mb-6">
         <Link
-          to="/"
+          to={ROUTES.HOME}
           className="text-blue-main flex items-center gap-2 hover:underline font-bold text-sm"
         >
           <span className="material-icons text-sm">arrow_back</span> Back to
@@ -102,6 +103,8 @@ const Timeline = () => {
   );
 };
 
-Timeline.propTypes = {};
+Timeline.propTypes = {
+  // Timeline page props
+};
 
 export default Timeline;

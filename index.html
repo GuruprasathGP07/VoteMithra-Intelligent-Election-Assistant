@@ -6,13 +6,20 @@
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>VoteMitra – Intelligent Election Assistant</title>
-  <meta name="description" content="Understand elections, avoid misinformation, and vote with full confidence.">
+  <meta name="description" content="VoteMithra - AI-powered election assistant helping Indian voters understand the voting process in 6 languages. Powered by Google Gemini.">
+  <meta name="theme-color" content="#0B3A75">
+  <meta property="og:title" content="VoteMithra – Intelligent Election Assistant">
+  <meta property="og:description" content="Your AI-powered voting guide for Indian elections">
+  <meta property="og:url" content="https://vote-mithra-xpe7geunqq-uc.a.run.app">
 
-  <!-- Content Security Policy (CSP) for Security Score Boost -->
-
-  <!-- Google Fonts -->
+  <!-- Performance Optimization: Preconnect Hints -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://firebaseio.com">
+  <link rel="preconnect" href="https://generativelanguage.googleapis.com">
+  <link rel="dns-prefetch" href="https://maps.googleapis.com">
+
+  <!-- Google Fonts -->
   <link
     href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Playfair+Display:wght@700;900&display=swap"
     rel="stylesheet">
@@ -21,7 +28,15 @@
 </head>
 
 <body class="bg-bg-main text-ink font-dm-sans">
-  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <a 
+    href="#main-content" 
+    class="skip-link"
+    style="position:absolute;top:-40px;left:0;background:#0B3A75;color:white;padding:8px 16px;text-decoration:none;z-index:9999;border-radius:0 0 8px 0;"
+    onfocus="this.style.top='0'"
+    onblur="this.style.top='-40px'"
+  >
+    Skip to main content
+  </a>
   <div id="root"></div>
   <script type="module" src="/src/main.jsx"></script>
   <!-- Google reCAPTCHA v3 -->

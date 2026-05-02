@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
+import { logger } from '../utils/logger';
 
 /**
  * ErrorBoundary catches React render errors and shows a fallback UI.
@@ -16,10 +17,7 @@ class ErrorBoundary extends Component {
   }
 
   componentDidCatch(error, errorInfo) {
-    // Log to console in dev; replace with analytics in prod
-    if (import.meta.env.DEV) {
-      console.error('ErrorBoundary caught:', error, errorInfo);
-    }
+    logger.error('ErrorBoundary caught:', error, errorInfo);
   }
 
   render() {

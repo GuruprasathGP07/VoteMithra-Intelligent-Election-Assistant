@@ -10,6 +10,7 @@ import {
   push,
 } from '../services/firebaseService';
 import { logChatbotQuery } from '../utils/analytics';
+import { logger } from '../utils/logger';
 
 /**
  * Chatbot component providing AI-powered voter assistance.
@@ -141,8 +142,7 @@ const Chatbot = ({
         });
       }
     } catch (error) {
-      // eslint-disable-next-line no-console
-      console.error('Chatbot Error:', error);
+      logger.error('Chatbot Error:', error);
       setMessages([
         ...newMessages,
         {

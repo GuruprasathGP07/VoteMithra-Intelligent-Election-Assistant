@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { detectFakeNewsCloud } from '../utils/gemini';
 import { logFakeNewsCheck } from '../utils/analytics';
+import { logger } from '../utils/logger';
 
 const FakeNews = () => {
   const [phase, setPhase] = useState(1);
@@ -123,7 +124,7 @@ const FakeNews = () => {
           result.recommendedAction || getRecommendedAction(riskLevel),
       });
     } catch (error) {
-      console.error('Analysis error:', error);
+      logger.error('Analysis error:', error);
       setAnalysisError(
         'Analysis failed. Please check your internet connection and try again.'
       );
@@ -367,6 +368,8 @@ const FakeNews = () => {
   );
 };
 
-FakeNews.propTypes = {};
+FakeNews.propTypes = {
+  // Fake news page props
+};
 
 export default FakeNews;

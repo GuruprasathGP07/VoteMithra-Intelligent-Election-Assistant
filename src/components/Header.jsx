@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { ROUTES } from '../utils/constants';
 import LanguageSwitcher from './LanguageSwitcher';
 
 const Header = ({ currentLanguage, onLanguageChange }) => {
@@ -10,13 +11,13 @@ const Header = ({ currentLanguage, onLanguageChange }) => {
   const navigate = useNavigate();
 
   const navLinks = [
-    { name: t('nav.home'), path: '/' },
-    { name: t('nav.simulator'), path: '/simulator' },
-    { name: t('nav.detector'), path: '/fakenews' },
-    { name: t('nav.rights'), path: '/protection' },
-    { name: t('nav.quiz'), path: '/quiz' },
-    { name: t('nav.locator'), path: '/locator' },
-    { name: t('nav.guide'), path: '/guide' },
+    { name: t('nav.home'), path: ROUTES.HOME },
+    { name: t('nav.simulator'), path: ROUTES.SIMULATOR },
+    { name: t('nav.detector'), path: ROUTES.FAKENEWS },
+    { name: t('nav.rights'), path: ROUTES.LAWS },
+    { name: t('nav.quiz'), path: ROUTES.QUIZ },
+    { name: t('nav.locator'), path: ROUTES.LOCATOR },
+    { name: t('nav.guide'), path: ROUTES.GUIDE },
   ];
 
   // Close menu on Escape key

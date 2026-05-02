@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { logger } from '../utils/logger';
 
 /**
  * Custom hook for syncing state to localStorage.
@@ -14,7 +15,7 @@ export function useLocalStorage(key, initialValue) {
       const item = window.localStorage.getItem(key);
       return item ? JSON.parse(item) : initialValue;
     } catch (error) {
-      console.warn(`useLocalStorage: Failed to read key "${key}":`, error);
+      logger.warn(`useLocalStorage: Failed to read key "${key}":`, error);
       return initialValue;
     }
   });
@@ -26,7 +27,7 @@ export function useLocalStorage(key, initialValue) {
       setStoredValue(valueToStore);
       window.localStorage.setItem(key, JSON.stringify(valueToStore));
     } catch (error) {
-      console.warn(`useLocalStorage: Failed to write key "${key}":`, error);
+      logger.warn(`useLocalStorage: Failed to write key "${key}":`, error);
     }
   };
 

@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { featureCards, journeyStops } from '../data/features';
 import { homeFaqs } from '../data/faqData';
+import { ROUTES } from '../utils/constants';
 import voterFingerImg from '../assets/images/vote.jpg';
 
 const Home = () => {
@@ -56,7 +57,7 @@ const Home = () => {
           <div className="flex flex-wrap justify-center gap-4 mt-8">
             <button
               className="btn-primary"
-              onClick={() => navigate('/simulator')}
+              onClick={() => navigate(ROUTES.SIMULATOR)}
             >
               {t('hero.button_start')}
             </button>
@@ -93,7 +94,7 @@ const Home = () => {
               </p>
               <button
                 className="btn-primary py-2.5 px-8 shadow-lg shadow-blue-main/20 hover:shadow-blue-main/40 transform hover:-translate-y-0.5 transition-all text-sm"
-                onClick={() => navigate('/eligibility')}
+                onClick={() => navigate(ROUTES.ELIGIBILITY)}
               >
                 {t('home.eligibility_btn')}
               </button>
@@ -265,7 +266,7 @@ const Home = () => {
         <div className="mt-12 text-center">
           <button
             className="text-blue-main font-bold hover:underline inline-flex items-center gap-2"
-            onClick={() => navigate('/faq')}
+            onClick={() => navigate(ROUTES.FAQ)}
           >
             {t('faq.see_all')}{' '}
             <span className="material-icons" aria-hidden="true">
@@ -278,6 +279,8 @@ const Home = () => {
   );
 };
 
-Home.propTypes = {};
+Home.propTypes = {
+  // Add any specific props if needed in future
+};
 
 export default Home;

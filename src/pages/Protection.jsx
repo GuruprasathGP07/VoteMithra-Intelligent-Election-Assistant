@@ -1,7 +1,7 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
+import { ROUTES } from '../utils/constants';
 
 const Protection = () => {
   const { t } = useTranslation();
@@ -56,7 +56,7 @@ const Protection = () => {
         {/* Header Section */}
         <div className="space-y-6">
           <Link
-            to="/"
+            to={ROUTES.HOME}
             className="inline-flex items-center gap-2 text-blue-main font-bold hover:underline mb-4"
           >
             <span className="material-icons text-sm">arrow_back</span>{' '}
@@ -197,6 +197,8 @@ const Protection = () => {
   );
 };
 
-Protection.propTypes = {};
+Protection.propTypes = {
+  // Page component props
+};
 
 export default Protection;

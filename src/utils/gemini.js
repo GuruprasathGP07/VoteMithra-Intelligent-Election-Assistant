@@ -1,26 +1,20 @@
+import { GoogleGenerativeAI } from '@google/generative-ai';
+import { logger } from './logger';
+import {
+  RATE_LIMIT_MAX_CALLS,
+  RATE_LIMIT_WINDOW_MS,
+  GEMINI_MODEL_PRIMARY,
+  GEMINI_MODEL_FALLBACK_1,
+  GEMINI_MODEL_FALLBACK_2,
+} from './constants';
+
 /**
  * Rate limiter to prevent API abuse.
- * Allows max 10 calls per 60 seconds per session.
  */
 export const rateLimiter = {
   calls: [],
-  maxCalls: 10,
-  windowMs: 60000,
-
-  /**
-   * Checks if a new API call is allowed under current rate limit.
-   * @returns {boolean} True if call is permitted, false if limit exceeded.
-   */
-  isAllowed() {
-    const now = Date.now();
-    this.calls = this.calls.filter((t) => now - t < this.windowMs);
-    if (this.calls.length >= this.maxCalls) return false;
-    this.calls.push(now);
-    return true;
-  },
-};
-
-import { GoogleGenerativeAI } from '@google/generative-ai';
+  maxCalls: RATE_LIMIT_MAX_CALLS,
+  windowMs: RATE_LIMIT_WINDOW_MS,
 
 // ─── Custom Error Classes ────────────────────────────────────────────────────
 
@@ -57,32 +51,30 @@ const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
 
 try {
   if (!apiKey || apiKey === 'YOUR_GEMINI_API_KEY') {
-    // eslint-disable-next-line no-console
-    console.warn(
+    logger.warn(
       'Gemini API key is missing or placeholder. Client-side AI features will be limited.'
     );
   } else {
     genAI = new GoogleGenerativeAI(apiKey);
   }
 } catch (error) {
-  // eslint-disable-next-line no-console
-  console.error('Failed to initialize Gemini AI:', error);
+  logger.error('Failed to initialize Gemini AI:', error);
 }
 
 // ─── Model Fallback Chain ────────────────────────────────────────────────────
 
 /** Ordered list of models to attempt for chat — falls back on 503. */
 const CHAT_MODELS = [
-  'gemini-2.5-flash',
-  'gemini-2.0-flash',
-  'gemini-2.0-flash-lite',
+  GEMINI_MODEL_PRIMARY,
+  GEMINI_MODEL_FALLBACK_1,
+  GEMINI_MODEL_FALLBACK_2,
 ];
 
 /** Ordered list of models to attempt for content analysis — falls back on 503. */
 const ANALYSIS_MODELS = [
-  'gemini-2.5-flash',
-  'gemini-2.0-flash',
-  'gemini-2.0-flash-lite',
+  GEMINI_MODEL_PRIMARY,
+  GEMINI_MODEL_FALLBACK_1,
+  GEMINI_MODEL_FALLBACK_2,
 ];
 
 /**
@@ -162,15 +154,13 @@ export const sendMessage = async (
       return response.text();
     } catch (error) {
       lastError = error;
-      // eslint-disable-next-line no-console
-      console.warn(`Gemini SDK Error [${modelName}]:`, error.message);
+      logger.warn(`Gemini SDK Error [${modelName}]:`, error.message);
 
       if (
         isOverloaded(error) &&
         modelName !== CHAT_MODELS[CHAT_MODELS.length - 1]
       ) {
-        // eslint-disable-next-line no-console
-        console.warn(`${modelName} overloaded — trying next model…`);
+        logger.warn(`${modelName} overloaded — trying next model…`);
         continue;
       }
 
@@ -253,15 +243,13 @@ Text to analyse: "${text}"`;
 
       return JSON.parse(analysisText);
     } catch (error) {
-      // eslint-disable-next-line no-console
-      console.warn(`Fake News Analysis Failed [${modelName}]:`, error.message);
+      logger.warn(`Fake News Analysis Failed [${modelName}]:`, error.message);
 
       if (
         isOverloaded(error) &&
         modelName !== ANALYSIS_MODELS[ANALYSIS_MODELS.length - 1]
       ) {
-        // eslint-disable-next-line no-console
-        console.warn(`${modelName} overloaded — trying next model…`);
+        logger.warn(`${modelName} overloaded — trying next model…`);
         continue;
       }
 

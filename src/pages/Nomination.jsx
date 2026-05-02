@@ -1,6 +1,6 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { ROUTES } from '../utils/constants';
 
 const steps = [
   {
@@ -38,7 +38,7 @@ const Nomination = () => {
     >
       <div className="flex justify-start">
         <Link
-          to="/"
+          to={ROUTES.HOME}
           className="text-blue-main flex items-center gap-2 hover:underline font-bold text-sm"
         >
           <span className="material-icons text-sm">arrow_back</span> Back to
@@ -110,6 +110,8 @@ const Nomination = () => {
   );
 };
 
-Nomination.propTypes = {};
+Nomination.propTypes = {
+  // Nomination page props
+};
 
 export default Nomination;

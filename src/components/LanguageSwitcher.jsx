@@ -1,18 +1,12 @@
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { logLanguageSwitched } from '../utils/analytics';
+import { LANGUAGE_DETAILS } from '../utils/constants';
 
 const LanguageSwitcher = ({ currentLang, onChange }) => {
   const { i18n } = useTranslation();
 
-  const languages = [
-    { code: 'en', name: 'English' },
-    { code: 'ta', name: 'தமிழ்' },
-    { code: 'hi', name: 'हिन्दी' },
-    { code: 'te', name: 'తెలుగు' },
-    { code: 'kn', name: 'ಕನ್ನಡ' },
-    { code: 'ml', name: 'മലയാളം' },
-  ];
+  const languages = LANGUAGE_DETAILS;
 
   const activeLang = currentLang || i18n.language;
 
@@ -44,7 +38,7 @@ const LanguageSwitcher = ({ currentLang, onChange }) => {
         >
           {languages.map((l) => (
             <option key={l.code} value={l.code}>
-              {l.name}
+              {l.nativeLabel}
             </option>
           ))}
         </select>

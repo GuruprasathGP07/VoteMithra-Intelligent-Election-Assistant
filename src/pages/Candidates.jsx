@@ -122,6 +122,8 @@ const Candidates = () => {
   );
 };
 
-Candidates.propTypes = {};
+Candidates.propTypes = {
+  // Candidate page props
+};
 
 export default Candidates;

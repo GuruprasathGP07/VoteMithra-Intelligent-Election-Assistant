@@ -36,7 +36,7 @@ export const safeFetch = async (url, options = {}) => {
   } catch (error) {
     if (import.meta.env.DEV) {
       // eslint-disable-next-line no-console
-      console.error(`[API ERROR] ${url}:`, error);
+      logger.error(`[API ERROR] ${url}:`, error);
     }
     return {
       error: true,

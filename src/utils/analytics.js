@@ -21,6 +21,8 @@ const firebaseConfig = {
 // Initialize Firebase Instance
 const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
 
+import { logger } from './logger';
+
 // Analytics instance (handled asynchronously for safety)
 let analytics = null;
 isSupported()
@@ -30,10 +32,7 @@ isSupported()
     }
   })
   .catch((err) => {
-    if (import.meta.env.DEV) {
-      // eslint-disable-next-line no-console
-      console.warn('Analytics not supported or failed to initialize:', err);
-    }
+    logger.warn('Analytics not supported or failed to initialize:', err);
   });
 
 /**
@@ -54,10 +53,7 @@ export const logCustomEvent = (eventName, properties = {}) => {
         environment: import.meta.env.MODE,
       });
     } catch (error) {
-      if (import.meta.env.DEV) {
-        // eslint-disable-next-line no-console
-        console.warn(`Analytics Error [${eventName}]:`, error);
-      }
+      logger.warn(`Analytics Error [${eventName}]:`, error);
     }
   }
 
