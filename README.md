@@ -19,7 +19,9 @@ into a single civic platform.
 
 ➡️ See [ALIGNMENT.md](./ALIGNMENT.md) for detailed mapping.
 🌐 **Live Demo:** https://vote-mithra-xpe7geunqq-uc.a.run.app
+
 💻 **GitHub:** https://github.com/GuruprasathGP07/VoteMithra-Intelligent-Election-Assistant  
+
 ⚡ **Built with:** Google Antigravity (intent-driven development)
 
 ---
@@ -142,11 +144,14 @@ VoteMithra is a deep-integration showcase of the Google ecosystem:
 
 Built with a rigorous, production-grade test suite:
 
-```
-Test Files:  8 passed (8)
-Tests:       53 passed (53)
-Coverage:    ~94% Statements | ~84% Branches | ~97% Lines
-```
+Test Files: 8 passed
+Tests: 27 passed
+Coverage: Core business logic 90%+ | Overall codebase 57%
+
+Note: Overall coverage excludes Firebase SDK internals, 
+Google Maps integration, and Gemini API calls which are 
+mocked in tests. All mocked dependencies have dedicated 
+integration tests verifying correct invocation.
 
 **Test coverage includes:**
 - Unit tests for all major components (Chatbot, EVM Simulator, Quiz, FakeNews, Eligibility)
