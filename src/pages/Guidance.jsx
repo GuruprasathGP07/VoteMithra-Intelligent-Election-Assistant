@@ -1,4 +1,5 @@
-﻿import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ROUTES } from '../utils/constants';
 
@@ -266,4 +267,4 @@ const Guidance = () => {
 };
 
 
-export default Guidance;
+`nGuidance.propTypes = {};`n`nexport default Guidance;

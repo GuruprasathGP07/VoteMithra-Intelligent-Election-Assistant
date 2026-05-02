@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { useState, useEffect, useRef, memo, useCallback, useMemo } from 'react';
 import { logVoteEvent } from '../utils/analytics';
 import { useTranslation } from 'react-i18next';
@@ -250,4 +251,4 @@ const EVMSimulator = memo(function EVMSimulator() {
   );
 });
 
-export default EVMSimulator;
+`nEVMSimulator.propTypes = {};`n`nexport default EVMSimulator;

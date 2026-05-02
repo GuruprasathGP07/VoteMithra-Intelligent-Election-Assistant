@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { detectFakeNewsCloud } from '../utils/gemini';
 import { logFakeNewsCheck } from '../utils/analytics';
@@ -368,4 +369,4 @@ const FakeNews = () => {
 };
 
 
-export default FakeNews;
+`nFakeNews.propTypes = {};`n`nexport default FakeNews;

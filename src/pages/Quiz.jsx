@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { useState, useRef, memo, useCallback } from 'react';
 import html2canvas from 'html2canvas';
 import ProgressBar from '../components/ProgressBar';
@@ -371,4 +372,4 @@ const Quiz = memo(function Quiz() {
   );
 });
 
-export default Quiz;
+`nQuiz.propTypes = {};`n`nexport default Quiz;

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { useState, memo, useCallback, useMemo } from 'react';
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
 import { useTranslation } from 'react-i18next';
@@ -200,4 +201,4 @@ const Locator = memo(function Locator() {
   );
 });
 
-export default Locator;
+`nLocator.propTypes = {};`n`nexport default Locator;

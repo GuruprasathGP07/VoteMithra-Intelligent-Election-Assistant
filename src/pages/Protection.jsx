@@ -1,4 +1,5 @@
-﻿import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ROUTES } from '../utils/constants';
 
@@ -197,4 +198,4 @@ const Protection = () => {
 };
 
 
-export default Protection;
+`nProtection.propTypes = {};`n`nexport default Protection;

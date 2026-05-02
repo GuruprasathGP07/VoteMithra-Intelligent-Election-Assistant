@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { useEffect, useState, memo, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -287,4 +288,4 @@ const Home = memo(function Home() {
   );
 });
 
-export default Home;
+`nHome.propTypes = {};`n`nexport default Home;

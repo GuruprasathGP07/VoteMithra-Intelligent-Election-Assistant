@@ -1,4 +1,5 @@
-﻿import { useState } from 'react';
+import PropTypes from 'prop-types';
+import { useState } from 'react';
 import { logEligibilityChecked } from '../utils/analytics';
 
 /**
@@ -53,7 +54,7 @@ const Eligibility = () => {
       outcome = 'eligible';
       setResult({
         type: 'green',
-        title: 'You are Eligible! âœ“',
+        title: 'You are Eligible! ✓',
         msg: 'Your next steps: 1. Check if your name is on the roll at voters.eci.gov.in. 2. If not, register using Form 6.',
       });
     }
@@ -196,7 +197,7 @@ const Eligibility = () => {
                   }
                   aria-label="Register on ECI Voter Portal"
                 >
-                  Go to ECI Voter Portal â†’
+                  Go to ECI Voter Portal →
                 </button>
               )}
             </div>
@@ -208,4 +209,4 @@ const Eligibility = () => {
 };
 
 
-export default Eligibility;
+`nEligibility.propTypes = {};`n`nexport default Eligibility;
