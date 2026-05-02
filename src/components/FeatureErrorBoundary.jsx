@@ -10,6 +10,11 @@ import PropTypes from 'prop-types';
 /**
  * FeatureErrorBoundary — catches errors in individual features.
  * Shows a compact fallback so the rest of the page stays functional.
+ *
+ * @example
+ * <FeatureErrorBoundary featureName="EVM Simulator">
+ *   <EVMSimulator />
+ * </FeatureErrorBoundary>
  */
 class FeatureErrorBoundary extends Component {
   constructor(props) {
@@ -21,6 +26,11 @@ class FeatureErrorBoundary extends Component {
     return { hasError: true };
   }
 
+  /**
+   * Logs feature crashes in development mode only.
+   * @param {Error} error - The error that was thrown.
+   * @param {React.ErrorInfo} info - Component stack trace.
+   */
   componentDidCatch(error, info) {
     if (import.meta.env.DEV) {
       // eslint-disable-next-line no-console
@@ -29,6 +39,9 @@ class FeatureErrorBoundary extends Component {
   }
 
   render() {
+    // ✅ ES6 default parameter — replaces deprecated defaultProps
+    const { featureName = 'This feature', children } = this.props;
+
     if (this.state.hasError) {
       return (
         <div
@@ -40,28 +53,26 @@ class FeatureErrorBoundary extends Component {
             ⚠️
           </span>
           <p className="text-sm font-semibold text-red-700">
-            {this.props.featureName} is temporarily unavailable
+            {featureName} is temporarily unavailable
           </p>
           <button
             onClick={() => this.setState({ hasError: false })}
             className="mt-3 text-xs text-red-600 underline hover:text-red-800"
+            aria-label={`Retry ${featureName}`}
           >
             Try again
           </button>
         </div>
       );
     }
-    return this.props.children;
+
+    return children;
   }
 }
 
 FeatureErrorBoundary.propTypes = {
   children: PropTypes.node.isRequired,
   featureName: PropTypes.string,
-};
-
-FeatureErrorBoundary.defaultProps = {
-  featureName: 'This feature',
 };
 
 export default FeatureErrorBoundary;
