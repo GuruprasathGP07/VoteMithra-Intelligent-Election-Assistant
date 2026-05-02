@@ -1,6 +1,12 @@
-import { describe, it, expect } from 'vitest';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { describe, it, expect, vi } from 'vitest';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import FakeNews from '../pages/FakeNews';
+
+// Mock gemini utility
+vi.mock('../utils/gemini', () => ({
+  detectFakeNewsCloud: vi.fn(),
+  rateLimiter: { isAllowed: () => true },
+}));
 
 describe('FakeNews Page', () => {
   it('renders swipe cards in phase 1', () => {
@@ -28,7 +34,22 @@ describe('FakeNews Page', () => {
   });
 
   it('detects misinformation and shows result', async () => {
+    const { detectFakeNewsCloud } = await import('../utils/gemini');
+    detectFakeNewsCloud.mockResolvedValueOnce({
+      score: 10,
+      verdict: 'FAKE',
+      reasoning: 'This is fake.'
+    });
+
     render(<FakeNews />);
+    
+    // Move to Phase 2
+    for (let i = 0; i < 3; i++) {
+      fireEvent.click(screen.getByLabelText('Mark as Fake'));
+      const btnText = i === 2 ? /Go to Custom AI Scanner/i : /Next Message/i;
+      fireEvent.click(screen.getByText(btnText));
+    }
+
     const textarea = screen.getByPlaceholderText(/Paste the message/i);
     const button = screen.getByRole('button', { name: /Analyse Message/i });
 
@@ -46,6 +67,14 @@ describe('FakeNews Page', () => {
     detectFakeNewsCloud.mockRejectedValueOnce(new Error('API Failed'));
 
     render(<FakeNews />);
+    
+    // Move to Phase 2
+    for (let i = 0; i < 3; i++) {
+      fireEvent.click(screen.getByLabelText('Mark as Fake'));
+      const btnText = i === 2 ? /Go to Custom AI Scanner/i : /Next Message/i;
+      fireEvent.click(screen.getByText(btnText));
+    }
+
     const textarea = screen.getByPlaceholderText(/Paste the message/i);
     const button = screen.getByRole('button', { name: /Analyse Message/i });
 
@@ -67,6 +96,14 @@ describe('FakeNews Page', () => {
     });
 
     render(<FakeNews />);
+    
+    // Move to Phase 2
+    for (let i = 0; i < 3; i++) {
+      fireEvent.click(screen.getByLabelText('Mark as Fake'));
+      const btnText = i === 2 ? /Go to Custom AI Scanner/i : /Next Message/i;
+      fireEvent.click(screen.getByText(btnText));
+    }
+
     const textarea = screen.getByPlaceholderText(/Paste the message/i);
     const button = screen.getByRole('button', { name: /Analyse Message/i });
 

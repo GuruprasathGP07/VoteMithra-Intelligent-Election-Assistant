@@ -1,5 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import Chatbot from '../components/Chatbot';
 
 // Mock gemini utility with the correct function name
 vi.mock('../utils/gemini', () => ({
@@ -21,19 +22,21 @@ vi.mock('../services/firebaseService', () => ({
   push: vi.fn().mockResolvedValue({}),
 }));
 
+vi.mock('../utils/analytics', () => ({
+  logChatbotQuery: vi.fn(),
+}));
+
 describe('Chatbot Component', () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
 
   it('renders chatbot toggle button', async () => {
-    const { default: Chatbot } = await import('../components/Chatbot');
     render(<Chatbot isOpen={false} />);
     expect(screen.getByLabelText(/Open AI Voter Coach/i)).toBeDefined();
   });
 
   it('opens chat window when toggled', async () => {
-    const { default: Chatbot } = await import('../components/Chatbot');
     render(<Chatbot isOpen={false} />);
     const button = screen.getByLabelText(/Open AI Voter Coach/i);
     fireEvent.click(button);
@@ -41,7 +44,6 @@ describe('Chatbot Component', () => {
   });
 
   it('sends a message and displays AI response', async () => {
-    const { default: Chatbot } = await import('../components/Chatbot');
     render(<Chatbot isOpen={true} />);
     
     const input = screen.getByLabelText(/Type your election question/i);
