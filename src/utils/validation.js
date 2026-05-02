@@ -1,3 +1,5 @@
+import { logger } from './logger';
+
 /**
  * Production-grade input validation helper.
  * Ensures data integrity before processing or sending to AI.
@@ -35,7 +37,6 @@ export const safeFetch = async (url, options = {}) => {
     return await response.json();
   } catch (error) {
     if (import.meta.env.DEV) {
-      // eslint-disable-next-line no-console
       logger.error(`[API ERROR] ${url}:`, error);
     }
     return {

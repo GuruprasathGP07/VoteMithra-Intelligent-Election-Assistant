@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
 const Footer = () => {
@@ -88,10 +87,6 @@ const Footer = () => {
       </div>
     </footer>
   );
-};
-
-Footer.propTypes = {
-  // Footer props
 };
 
 export default Footer;

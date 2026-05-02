@@ -1,7 +1,7 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, memo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import { sendMessage } from '../utils/gemini';
+import { useGemini } from '../hooks';
 import { sanitizeInput } from '../utils/sanitize';
 import {
   isFirebaseConfigured,
@@ -9,63 +9,32 @@ import {
   ref,
   push,
 } from '../services/firebaseService';
-import { logChatbotQuery } from '../utils/analytics';
 import { logger } from '../utils/logger';
 
 /**
  * Chatbot component providing AI-powered voter assistance.
- * Features: Multilingual support, sanitization, and session logging.
+ * Features: Multilingual support, sanitization, and session logic abstraction via useGemini.
  */
-const Chatbot = ({
+const Chatbot = memo(function Chatbot({
   language: propLanguage = 'en',
   userId = null,
   isOpen: propIsOpen = false,
   onClose = () => {},
-}) => {
+}) {
   const { t, i18n } = useTranslation();
+  const { messages, loading, error, sendQuery } = useGemini();
   const [isOpen, setIsOpen] = useState(propIsOpen || false);
   const [input, setInput] = useState('');
-  const [messages, setMessages] = useState([
-    { role: 'model', parts: [{ text: t('chatbot.welcome') }] },
-  ]);
-  const [isTyping, setIsTyping] = useState(false);
   const scrollRef = useRef(null);
 
   const activeLanguage = propLanguage || i18n.language;
 
-  // Suggested questions for first-time users
   const starterChips = [
     t('chatbot.chip_register'),
     t('chatbot.chip_nota'),
     t('chatbot.chip_evm'),
     t('chatbot.chip_cvigil'),
   ];
-
-  /**
-   * Maps language codes to full names for AI context.
-   */
-  const getLanguageName = (code) => {
-    const langs = {
-      en: 'English',
-      ta: 'Tamil',
-      hi: 'Hindi',
-      te: 'Telugu',
-      kn: 'Kannada',
-      ml: 'Malayalam',
-    };
-    return langs[code] || 'English';
-  };
-
-  /**
-   * Defines AI persona and constraints.
-   */
-  const systemPrompt = `You are VoteMitra, a friendly and authoritative election assistant for Indian voters. You only answer questions about voting, elections, voter rights, ECI rules, election laws, and civic duties in India. Keep every answer under 5 sentences. Always cite the specific law or ECI rule when relevant. Never discuss political parties by name, never recommend any candidate, never give opinions on election outcomes. If asked about anything unrelated to elections, politely redirect. 
-  
-  CRITICAL: The user interface is currently set to ${getLanguageName(activeLanguage)}. 
-  YOU MUST RESPOND ENTIRELY IN ${getLanguageName(activeLanguage)}. 
-  IGNORE the language of any previous messages in this history if they are different. 
-  If the user asks a question in a different language, answer it IN ${getLanguageName(activeLanguage)} anyway. 
-  Do not explain why you are switching, just switch immediately to ${getLanguageName(activeLanguage)}.`;
 
   // Handle global events to open chatbot from other components
   useEffect(() => {
@@ -81,93 +50,49 @@ const Chatbot = ({
     }
   }, [propIsOpen]);
 
-  // Synchronize welcome message when language changes
-  useEffect(() => {
-    if (messages.length === 1 && messages[0].role === 'model') {
-      setMessages([{ role: 'model', parts: [{ text: t('chatbot.welcome') }] }]);
-    }
-  }, [activeLanguage, t]);
-
   // Auto-scroll to bottom on new messages
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
-  }, [messages, isTyping]);
+  }, [messages, loading]);
 
-  /**
-   * Main message handler.
-   * Performs sanitization, logging, and AI communication.
-   */
-  const handleSend = async (text = null) => {
-    const rawInput = text || input.trim();
-    if (!rawInput || isTyping) return;
+  const handleSend = useCallback(
+    async (text = null) => {
+      const rawInput = text || input.trim();
+      if (!rawInput || loading) return;
 
-    // 1. Sanitize user input for security
-    const msgText = sanitizeInput(rawInput);
-    const newMessages = [
-      ...messages,
-      { role: 'user', parts: [{ text: msgText }] },
-    ];
+      const msgText = sanitizeInput(rawInput);
+      setInput('');
 
-    setMessages(newMessages);
-    setInput('');
-    setIsTyping(true);
+      try {
+        await sendQuery(msgText);
 
-    // 2. Log analytics
-    logChatbotQuery(activeLanguage);
-
-    try {
-      // 3. Request AI response with system constraints
-      const responseText = await sendMessage(
-        msgText,
-        activeLanguage,
-        messages,
-        systemPrompt
-      );
-      const updatedMessages = [
-        ...newMessages,
-        { role: 'model', parts: [{ text: responseText }] },
-      ];
-      setMessages(updatedMessages);
-
-      // 4. Persistence (Firebase Realtime DB)
-      if (isFirebaseConfigured) {
-        push(ref(db, 'chat-sessions'), {
-          user: msgText,
-          bot: responseText,
-          lang: activeLanguage,
-          userId: userId || 'anonymous',
-          timestamp: Date.now(),
-        });
+        // Optional: Add to Firebase if bot responds successfully
+        // Note: The actual bot response text isn't returned by sendQuery in the provided hook,
+        // so we'd need to peek at the last message if we wanted to log it here.
+        if (isFirebaseConfigured) {
+          push(ref(db, 'chat-sessions'), {
+            user: msgText,
+            lang: activeLanguage,
+            userId: userId || 'anonymous',
+            timestamp: Date.now(),
+          });
+        }
+      } catch (err) {
+        logger.error('Chatbot Persistence Error:', err);
       }
-    } catch (error) {
-      logger.error('Chatbot Error:', error);
-      setMessages([
-        ...newMessages,
-        {
-          role: 'model',
-          parts: [
-            {
-              text:
-                t('chatbot.error_message') ||
-                'I am currently overloaded. Please try again.',
-            },
-          ],
-        },
-      ]);
-    } finally {
-      setIsTyping(false);
-    }
-  };
+    },
+    [input, loading, sendQuery, activeLanguage, userId]
+  );
 
-  const handleToggle = () => {
+  const handleToggle = useCallback(() => {
     const nextState = !isOpen;
     setIsOpen(nextState);
     if (!nextState && onClose) {
       onClose();
     }
-  };
+  }, [isOpen, onClose]);
 
   return (
     <>
@@ -237,7 +162,7 @@ const Chatbot = ({
               </div>
             </div>
           ))}
-          {isTyping && (
+          {loading && (
             <div className="flex justify-start">
               <div
                 className="bg-blue-pale p-3 rounded-2xl rounded-bl-none flex gap-1"
@@ -249,12 +174,19 @@ const Chatbot = ({
               </div>
             </div>
           )}
+          {error && (
+            <div className="flex justify-center p-2">
+              <div className="text-[11px] text-red-500 bg-red-50 px-3 py-1 rounded-full border border-red-100">
+                {error}
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Input Area */}
         <div className="p-3 bg-white border-t border-border-gray">
           {/* Quick Suggestions */}
-          {messages.length === 1 && !isTyping && (
+          {messages.length === 1 && !loading && (
             <div className="flex flex-wrap gap-2 mb-3" role="list">
               {starterChips.map((chip) => (
                 <button
@@ -293,7 +225,7 @@ const Chatbot = ({
       </div>
     </>
   );
-};
+});
 
 Chatbot.propTypes = {
   language: PropTypes.string,

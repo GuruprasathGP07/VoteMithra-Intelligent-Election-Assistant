@@ -1,5 +1,4 @@
-﻿import { useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useState } from 'react';
 import { detectFakeNewsCloud } from '../utils/gemini';
 import { logFakeNewsCheck } from '../utils/analytics';
 import { logger } from '../utils/logger';
@@ -7,7 +6,6 @@ import { logger } from '../utils/logger';
 const FakeNews = () => {
   const [phase, setPhase] = useState(1);
   const [currentSwipe, setCurrentSwipe] = useState(0);
-  const [swipeScore, setSwipeScore] = useState(0);
   const [swipeFeedback, setSwipeFeedback] = useState(null);
 
   const [customInput, setCustomInput] = useState('');
@@ -42,7 +40,9 @@ const FakeNews = () => {
   const handleSwipe = (choice) => {
     const current = swipes[currentSwipe];
     const isCorrect = choice === current.type;
-    if (isCorrect) setSwipeScore((prev) => prev + 1);
+    if (isCorrect) {
+      // Correct answer logic here if needed
+    }
     setSwipeFeedback({ isCorrect, explanation: current.explanation });
   };
 

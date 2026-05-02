@@ -1,12 +1,13 @@
-﻿import { useEffect, useState } from 'react';
+import { useEffect, useState, memo, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { featureCards, journeyStops } from '../data/features';
 import { homeFaqs } from '../data/faqData';
 import { ROUTES } from '../utils/constants';
+import JourneyStep from '../components/JourneyStep';
 import voterFingerImg from '../assets/images/vote.jpg';
 
-const Home = () => {
+const Home = memo(function Home() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [revealed, setRevealed] = useState(false);
@@ -16,6 +17,21 @@ const Home = () => {
     const timer = setTimeout(() => setRevealed(true), 100);
     return () => clearTimeout(timer);
   }, []);
+
+  const handleJourneyClick = useCallback(
+    (stop) => {
+      if (stop.path) navigate(stop.path);
+      else if (stop.url) window.open(stop.url, '_blank', 'noopener,noreferrer');
+    },
+    [navigate]
+  );
+
+  const toggleFaq = useCallback(
+    (index) => {
+      setOpenFaq((prev) => (prev === index ? null : index));
+    },
+    []
+  );
 
   return (
     <main id="main-content" tabIndex={-1} className="flex flex-col">
@@ -44,7 +60,7 @@ const Home = () => {
               </span>
             </div>
           </div>
-          <h1 className="text-4xl md:text-6xl font-black leading-tight font-playfair">
+          <h1 className="text-4xl md:text-6xl font-black leading-tight font-dm-sans">
             {t('hero.subtitle')}
           </h1>
           <p className="text-lg md:text-xl text-white/80">
@@ -85,7 +101,7 @@ const Home = () => {
           <div className="relative overflow-hidden card bg-white p-8 flex items-center justify-between group hover:shadow-2xl transition-all border-none bg-gradient-to-br from-white to-blue-pale/30">
             <div className="absolute top-0 left-0 w-1.5 h-full bg-blue-main"></div>
             <div className="flex-1 relative z-10">
-              <h3 className="text-2xl font-bold text-blue-main mb-2 font-playfair">
+              <h3 className="text-2xl font-bold text-blue-main mb-2 font-dm-sans">
                 {t('home.eligibility_title')}
               </h3>
               <p className="text-muted text-sm mb-6 leading-relaxed">
@@ -107,7 +123,7 @@ const Home = () => {
           <div className="relative overflow-hidden card bg-white p-8 flex items-center justify-between group hover:shadow-2xl transition-all border-none bg-gradient-to-br from-white to-saffron/10">
             <div className="absolute top-0 left-0 w-1.5 h-full bg-saffron"></div>
             <div className="flex-1 relative z-10">
-              <h3 className="text-2xl font-bold text-blue-main mb-2 font-playfair">
+              <h3 className="text-2xl font-bold text-blue-main mb-2 font-dm-sans">
                 {t('home.ai_coach_title')}
               </h3>
               <p className="text-muted text-sm mb-6 leading-relaxed">
@@ -135,7 +151,7 @@ const Home = () => {
         className="py-20 px-8 max-w-6xl mx-auto w-full"
       >
         <div className="text-center mb-16 space-y-2">
-          <h2 className="text-3xl md:text-4xl text-blue-main font-bold font-playfair">
+          <h2 className="text-3xl md:text-4xl text-blue-main font-bold font-dm-sans">
             {t('journey.title')}
           </h2>
           <p className="text-muted">{t('journey.subtitle')}</p>
@@ -158,31 +174,24 @@ const Home = () => {
           </svg>
 
           {/* Map Stops */}
-          <div className="grid md:block grid-cols-1 gap-6 md:gap-0">
+          <div className="grid md:block grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-0">
             {journeyStops.map((stop) => (
               <div
                 key={stop.id}
-                className="md:absolute flex flex-row md:flex-col items-center gap-4 md:gap-2 cursor-pointer transition-transform hover:scale-110 z-10 w-auto md:w-20 md:-translate-x-1/2 md:-translate-y-1/2"
+                className="md:absolute z-10 w-full md:w-[180px] md:-translate-x-1/2 md:-translate-y-1/2"
                 style={{
                   top: stop.top,
                   left: stop.left,
                 }}
-                onClick={() => {
-                  if (stop.path) navigate(stop.path);
-                  else if (stop.url) window.open(stop.url, '_blank');
-                }}
+                onClick={() => handleJourneyClick(stop)}
               >
-                <div className="relative w-12 h-12 bg-white border-2 border-border-gray rounded-full flex items-center justify-center text-blue-main shadow-main shrink-0">
-                  <span className="material-icons text-2xl leading-none">
-                    {stop.icon}
-                  </span>
-                  <span className="absolute -top-1 -right-1 bg-saffron text-blue-main text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full border-2 border-white shadow-sm">
-                    {stop.id}
-                  </span>
-                </div>
-                <div className="text-sm font-bold text-center md:bg-white/90 md:px-2 md:py-0.5 md:rounded md:shadow-sm">
-                  {t(`journey_stops.${stop.key}`)}
-                </div>
+                <JourneyStep
+                  step={stop.id}
+                  title={t(`journey_stops.${stop.key}`)}
+                  description=""
+                  icon={stop.icon}
+                  onClick={() => handleJourneyClick(stop)}
+                />
               </div>
             ))}
           </div>
@@ -191,7 +200,7 @@ const Home = () => {
 
       {/* Feature Grid */}
       <section className="py-20 px-8 max-w-6xl mx-auto w-full">
-        <h2 className="text-3xl font-bold text-blue-main mb-10 font-playfair">
+        <h2 className="text-3xl font-bold text-blue-main mb-10 font-dm-sans">
           {t('awareness.title')}
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -225,7 +234,7 @@ const Home = () => {
       {/* FAQ Section */}
       <section className="py-20 px-8 max-w-4xl mx-auto w-full">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-blue-main font-playfair mb-4">
+          <h2 className="text-3xl font-bold text-blue-main font-dm-sans mb-4">
             {t('faq.section_title')}
           </h2>
           <p className="text-muted">{t('faq.section_subtitle')}</p>
@@ -239,7 +248,7 @@ const Home = () => {
             >
               <button
                 className="w-full text-left p-6 flex justify-between items-center bg-white hover:bg-bg-main transition-colors"
-                onClick={() => setOpenFaq(openFaq === index ? null : index)}
+                onClick={() => toggleFaq(index)}
               >
                 <span className="font-bold text-blue-main">
                   {t(`faq_items.${faq.k}.q`)}
@@ -276,7 +285,6 @@ const Home = () => {
       </section>
     </main>
   );
-};
-
+});
 
 export default Home;

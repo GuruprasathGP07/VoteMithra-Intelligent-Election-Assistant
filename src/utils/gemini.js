@@ -1,4 +1,4 @@
-﻿import { GoogleGenerativeAI } from '@google/generative-ai';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 import { logger } from './logger';
 import {
   RATE_LIMIT_MAX_CALLS,
@@ -145,7 +145,6 @@ export const sendMessage = async (
       return [...acc, msg];
     }, []);
 
-  let lastError;
 
   for (const modelName of CHAT_MODELS) {
     try {
@@ -161,7 +160,6 @@ export const sendMessage = async (
       const response = await result.response;
       return response.text();
     } catch (error) {
-      lastError = error;
       logger.warn(`Gemini SDK Error [${modelName}]:`, error.message);
 
       if (

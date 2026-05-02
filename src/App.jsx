@@ -5,6 +5,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import Chatbot from './components/Chatbot';
 import ErrorBoundary from './components/ErrorBoundary';
+import FeatureErrorBoundary from './components/FeatureErrorBoundary';
 import { ROUTES } from './utils/constants';
 
 // ✅ Lazy load all pages — each route loads only when visited
@@ -191,7 +192,9 @@ function App() {
         </Routes>
       </div>
 
-      <Chatbot />
+      <FeatureErrorBoundary featureName="AI Voter Coach">
+        <Chatbot />
+      </FeatureErrorBoundary>
       <Footer />
 
       <div

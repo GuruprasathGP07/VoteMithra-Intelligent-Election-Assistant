@@ -59,22 +59,24 @@ vi.mock('react-i18next', () => ({
 
 // Mock Gemini
 vi.mock('@google/generative-ai', () => ({
-  GoogleGenerativeAI: vi.fn(() => ({
-    getGenerativeModel: vi.fn(() => ({
-      generateContent: vi.fn(() =>
-        Promise.resolve({
-          response: { text: () => 'Mock AI response' },
-        })
-      ),
-      startChat: vi.fn(() => ({
-        sendMessage: vi.fn(() =>
+  GoogleGenerativeAI: vi.fn(function () {
+    return {
+      getGenerativeModel: vi.fn(() => ({
+        generateContent: vi.fn(() =>
           Promise.resolve({
-            response: { text: () => 'Mock chat response' },
+            response: { text: () => 'Mock AI response' },
           })
         ),
+        startChat: vi.fn(() => ({
+          sendMessage: vi.fn(() =>
+            Promise.resolve({
+              response: { text: () => 'Mock chat response' },
+            })
+          ),
+        })),
       })),
-    })),
-  })),
+    };
+  }),
 }));
 
 // Mock window.matchMedia if running in jsdom
@@ -92,4 +94,26 @@ if (typeof window !== 'undefined') {
       dispatchEvent: vi.fn(),
     })),
   });
+
+  // Mock localStorage and sessionStorage
+  const storageMock = () => {
+    let storage = {};
+    return {
+      getItem: vi.fn((key) => storage[key] || null),
+      setItem: vi.fn((key, value) => {
+        storage[key] = value.toString();
+      }),
+      removeItem: vi.fn((key) => {
+        delete storage[key];
+      }),
+      clear: vi.fn(() => {
+        storage = {};
+      }),
+      length: 0,
+      key: vi.fn((i) => Object.keys(storage)[i] || null),
+    };
+  };
+
+  Object.defineProperty(window, 'localStorage', { value: storageMock() });
+  Object.defineProperty(window, 'sessionStorage', { value: storageMock() });
 }

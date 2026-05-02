@@ -1,22 +1,23 @@
-﻿import { useState } from 'react';
+import { useState, memo, useCallback, useMemo } from 'react';
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
 import { useTranslation } from 'react-i18next';
 import { logBoothSearch } from '../utils/analytics';
 import { logger } from '../utils/logger';
+import FeatureErrorBoundary from '../components/FeatureErrorBoundary';
 
 const MAPS_API_KEY = import.meta.env.VITE_MAPS_API_KEY;
 
-const containerStyle = {
+const CONTAINER_STYLE = {
   width: '100%',
   height: '100%',
 };
 
-const defaultCenter = {
+const DEFAULT_CENTER = {
   lat: 28.6139,
   lng: 77.209,
 };
 
-const Locator = () => {
+const Locator = memo(function Locator() {
   const { t } = useTranslation();
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
@@ -26,38 +27,50 @@ const Locator = () => {
   const [pin, setPin] = useState('');
   const [searching, setSearching] = useState(false);
   const [results, setResults] = useState([]);
-  const [center, setCenter] = useState(defaultCenter);
+  const [center, setCenter] = useState(DEFAULT_CENTER);
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    if (!pin.trim() || !isLoaded) return;
-    setSearching(true);
-    logBoothSearch(pin);
+  const mapOptions = useMemo(
+    () => ({
+      disableDefaultUI: true,
+      zoomControl: true,
+    }),
+    []
+  );
 
-    const geocoder = new window.google.maps.Geocoder();
-    geocoder.geocode({ address: `India, PIN ${pin}` }, (results, status) => {
-      if (status === 'OK' && results[0]) {
-        const { lat, lng } = results[0].geometry.location;
-        const newCoords = { lat: lat(), lng: lng() };
-        setCenter(newCoords);
-        setResults([
-          {
-            name: 'Designated Poll Booth',
-            address: results[0].formatted_address,
-            dist: 'Within 2 km',
-          },
-          {
-            name: 'Secondary Booth (Backup)',
-            address: 'Near Government Office, ' + pin,
-            dist: '3.5 km',
-          },
-        ]);
-      } else {
-        logger.warn('Location not found for this PIN code.');
-      }
-      setSearching(false);
-    });
-  };
+  const handleSearch = useCallback(
+    (e) => {
+      if (e) e.preventDefault();
+      if (!pin.trim() || !isLoaded) return;
+
+      setSearching(true);
+      logBoothSearch(pin);
+
+      const geocoder = new window.google.maps.Geocoder();
+      geocoder.geocode({ address: `India, PIN ${pin}` }, (results, status) => {
+        if (status === 'OK' && results[0]) {
+          const { lat, lng } = results[0].geometry.location;
+          const newCoords = { lat: lat(), lng: lng() };
+          setCenter(newCoords);
+          setResults([
+            {
+              name: 'Designated Poll Booth',
+              address: results[0].formatted_address,
+              dist: 'Within 2 km',
+            },
+            {
+              name: 'Secondary Booth (Backup)',
+              address: 'Near Government Office, ' + pin,
+              dist: '3.5 km',
+            },
+          ]);
+        } else {
+          logger.warn('Location not found for this PIN code.');
+        }
+        setSearching(false);
+      });
+    },
+    [pin, isLoaded]
+  );
 
   return (
     <main
@@ -66,7 +79,7 @@ const Locator = () => {
       className="max-w-4xl mx-auto py-10 px-6 space-y-10"
     >
       <div className="text-center space-y-2">
-        <h1 className="text-3xl font-bold text-blue-main font-playfair">
+        <h1 className="text-3xl font-bold text-blue-main font-dm-sans">
           {t('map.title')}
         </h1>
         <p className="text-muted">{t('map.description')}</p>
@@ -142,34 +155,39 @@ const Locator = () => {
         </div>
 
         <div className="space-y-4">
-          <div className="h-[400px] bg-border-gray rounded-radius flex items-center justify-center relative overflow-hidden border-2 border-white shadow-main">
-            {results.length > 0 && isLoaded ? (
-              <GoogleMap
-                mapContainerStyle={containerStyle}
-                center={center}
-                zoom={14}
-                options={{ disableDefaultUI: true, zoomControl: true }}
-              >
-                <Marker position={center} />
-              </GoogleMap>
-            ) : (
-              <div className="text-center p-8 space-y-4">
-                <span className="material-icons text-4xl text-muted">map</span>
-                <p className="text-sm text-muted">
-                  {searching
-                    ? 'Finding coordinates...'
-                    : t('map.search_placeholder')}
-                </p>
-                <a
-                  href="https://voters.eci.gov.in"
-                  target="_blank"
-                  className="btn-secondary text-xs"
+          <FeatureErrorBoundary featureName="Polling Booth Map">
+            <div className="h-[400px] bg-border-gray rounded-radius flex items-center justify-center relative overflow-hidden border-2 border-white shadow-main">
+              {results.length > 0 && isLoaded ? (
+                <GoogleMap
+                  mapContainerStyle={CONTAINER_STYLE}
+                  center={center}
+                  zoom={14}
+                  options={mapOptions}
                 >
-                  {t('map.official_portal')}
-                </a>
-              </div>
-            )}
-          </div>
+                  <Marker position={center} />
+                </GoogleMap>
+              ) : (
+                <div className="text-center p-8 space-y-4">
+                  <span className="material-icons text-4xl text-muted">
+                    map
+                  </span>
+                  <p className="text-sm text-muted">
+                    {searching
+                      ? 'Finding coordinates...'
+                      : t('map.search_placeholder')}
+                  </p>
+                  <a
+                    href="https://voters.eci.gov.in"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-secondary text-xs"
+                  >
+                    {t('map.official_portal')}
+                  </a>
+                </div>
+              )}
+            </div>
+          </FeatureErrorBoundary>
           <div className="bg-amber-main/10 border border-amber-main/30 p-4 rounded-radius flex gap-3 text-amber-main">
             <span className="material-icons text-sm">warning</span>
             <p className="text-[11px] font-medium leading-relaxed">
@@ -180,7 +198,6 @@ const Locator = () => {
       </div>
     </main>
   );
-};
-
+});
 
 export default Locator;

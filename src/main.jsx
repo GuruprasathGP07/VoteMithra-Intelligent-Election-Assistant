@@ -1,5 +1,6 @@
 import React, { Suspense, Component } from 'react';
 import ReactDOM from 'react-dom/client';
+import PropTypes from 'prop-types';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App.jsx';
 import './index.css';
@@ -73,6 +74,10 @@ class ErrorBoundary extends Component {
     return this.props.children;
   }
 }
+
+ErrorBoundary.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
 const root = document.getElementById('root');
 
