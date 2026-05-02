@@ -17,10 +17,12 @@
   ECI emergency helplines, and a full Google Cloud deployment 
   into a single civic platform.
 
-  ➡️ See [ALIGNMENT.md](./ALIGNMENT.md) for detailed mapping.
-  🌐 **Live Demo:** https://vote-mithra-xpe7geunqq-uc.a.run.app
-  💻 **GitHub:** https://github.com/GuruprasathGP07/VoteMithra-Intelligent-Election-Assistant  
-  ⚡ **Built with:** Google Antigravity (intent-driven development)
+## 🔗 Project Resources
+
+- 🌐 Live Demo: https://vote-mithra-xpe7geunqq-uc.a.run.app  
+- 💻 GitHub: https://github.com/GuruprasathGP07/VoteMithra-Intelligent-Election-Assistant  
+- 📄 Detailed Mapping: `ALIGNMENT.md`
+- ⚡ **Built with:** Google Antigravity (intent-driven development)
 
   ---
 
