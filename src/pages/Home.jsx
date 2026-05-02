@@ -1,5 +1,4 @@
-import PropTypes from 'prop-types';
-import { useEffect, useState } from 'react';
+﻿import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { featureCards, journeyStops } from '../data/features';
@@ -75,7 +74,7 @@ const Home = () => {
         </div>
 
         <div className="absolute bottom-5 text-sm text-white/50 animate-bounce">
-          ↓ {t('hero.scroll')}
+          â†“ {t('hero.scroll')}
         </div>
       </section>
 
@@ -279,8 +278,5 @@ const Home = () => {
   );
 };
 
-Home.propTypes = {
-  // Add any specific props if needed in future
-};
 
 export default Home;

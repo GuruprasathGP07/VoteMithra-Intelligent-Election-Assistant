@@ -1,5 +1,4 @@
-import { useState, useRef } from 'react';
-import PropTypes from 'prop-types';
+﻿import { useState, useRef } from 'react';
 import html2canvas from 'html2canvas';
 import ProgressBar from '../components/ProgressBar';
 import { logQuizStarted, logQuizCompleted } from '../utils/analytics';
@@ -149,7 +148,7 @@ const Quiz = () => {
       setFeedback(null);
     } else {
       setFinished(true);
-      logQuizCompleted(userName, score); // ✅ score already has the latest value
+      logQuizCompleted(userName, score); // âœ… score already has the latest value
     }
   };
   if (!started) {
@@ -206,7 +205,7 @@ const Quiz = () => {
                   : 'bg-blue-pale text-blue-main'
             }`}
           >
-            🏆 {badge}
+            ðŸ† {badge}
           </div>
 
           <div
@@ -347,7 +346,7 @@ const Quiz = () => {
                 >
                   {currentQ === questions.length - 1
                     ? 'Show Results'
-                    : 'Next Question →'}
+                    : 'Next Question â†’'}
                 </button>
               </div>
             )}
@@ -358,8 +357,5 @@ const Quiz = () => {
   );
 };
 
-Quiz.propTypes = {
-  // Quiz page props
-};
 
 export default Quiz;

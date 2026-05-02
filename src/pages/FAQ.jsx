@@ -1,5 +1,4 @@
-import PropTypes from 'prop-types';
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { faqs } from '../data/faqData';
 
@@ -47,8 +46,5 @@ const FAQ = () => {
   );
 };
 
-FAQ.propTypes = {
-  // FAQ page props
-};
 
 export default FAQ;

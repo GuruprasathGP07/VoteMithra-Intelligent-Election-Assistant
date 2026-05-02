@@ -1,7 +1,6 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
 import { useTranslation } from 'react-i18next';
-import PropTypes from 'prop-types';
 import { logBoothSearch } from '../utils/analytics';
 import { logger } from '../utils/logger';
 
@@ -183,8 +182,5 @@ const Locator = () => {
   );
 };
 
-Locator.propTypes = {
-  // Locator page props
-};
 
 export default Locator;

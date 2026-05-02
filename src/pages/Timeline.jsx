@@ -1,5 +1,4 @@
-import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
+﻿import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { logTimelineViewed } from '../utils/analytics';
@@ -103,8 +102,5 @@ const Timeline = () => {
   );
 };
 
-Timeline.propTypes = {
-  // Timeline page props
-};
 
 export default Timeline;

@@ -1,5 +1,4 @@
-import PropTypes from 'prop-types';
-import { useState, useEffect, useRef } from 'react';
+﻿import { useState, useEffect, useRef } from 'react';
 import { logVoteEvent } from '../utils/analytics';
 import { useTranslation } from 'react-i18next';
 
@@ -107,7 +106,7 @@ const EVMSimulator = () => {
                   aria-hidden="true"
                 />
                 <div className="flex-1 text-[13px] text-white font-medium uppercase truncate">
-                  {c.name} — {c.party}
+                  {c.name} â€” {c.party}
                 </div>
                 <button
                   disabled={!!selected}
@@ -145,7 +144,7 @@ const EVMSimulator = () => {
               id="vvpat-title"
               className="text-white text-center font-mono text-xs mb-4 uppercase tracking-wider"
             >
-              VVPAT — Voter Verified Paper Audit Trail
+              VVPAT â€” Voter Verified Paper Audit Trail
             </h3>
 
             <div className="h-[180px] bg-black border-2 border-[#334155] rounded relative overflow-hidden flex items-center justify-center">
@@ -188,13 +187,13 @@ const EVMSimulator = () => {
                       className="btn-primary flex-1 bg-green-main hover:bg-green-700 text-white focus:ring-2 focus:ring-offset-2"
                       onClick={() => setVvpatConfirmed(true)}
                     >
-                      Yes ✓
+                      Yes âœ“
                     </button>
                     <button
                       className="btn-primary flex-1 bg-red-main hover:bg-red-700 text-white focus:ring-2 focus:ring-offset-2"
                       onClick={() => setVvpatConfirmed(false)}
                     >
-                      No ✗
+                      No âœ—
                     </button>
                   </div>
                 </div>
@@ -216,8 +215,8 @@ const EVMSimulator = () => {
                 className={`font-bold mb-1 ${vvpatConfirmed ? 'text-green-main' : 'text-red-main'}`}
               >
                 {vvpatConfirmed
-                  ? 'Verification Successful ✓'
-                  : 'Mismatch Alert ✗'}
+                  ? 'Verification Successful âœ“'
+                  : 'Mismatch Alert âœ—'}
               </h4>
               <p className="text-sm">
                 {vvpatConfirmed
@@ -246,8 +245,5 @@ const EVMSimulator = () => {
   );
 };
 
-EVMSimulator.propTypes = {
-  // EVM simulator props
-};
 
 export default EVMSimulator;

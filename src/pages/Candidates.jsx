@@ -1,8 +1,7 @@
-import React from 'react';
+﻿import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
-import PropTypes from 'prop-types';
 
 const Candidates = () => {
   const { t } = useTranslation();
@@ -122,8 +121,5 @@ const Candidates = () => {
   );
 };
 
-Candidates.propTypes = {
-  // Candidate page props
-};
 
 export default Candidates;

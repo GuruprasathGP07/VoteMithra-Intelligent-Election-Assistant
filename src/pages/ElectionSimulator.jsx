@@ -1,5 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
-import PropTypes from 'prop-types';
+﻿import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { simulatorSteps } from '../data/simulatorSteps';
 import ProgressBar from '../components/ProgressBar';
@@ -379,8 +378,5 @@ const ElectionSimulator = () => {
   );
 };
 
-ElectionSimulator.propTypes = {
-  // Simulator props
-};
 
 export default ElectionSimulator;

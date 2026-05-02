@@ -1,5 +1,4 @@
-import PropTypes from 'prop-types';
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { detectFakeNewsCloud } from '../utils/gemini';
 import { logFakeNewsCheck } from '../utils/analytics';
@@ -19,14 +18,14 @@ const FakeNews = () => {
   const swipes = [
     {
       id: 1,
-      text: '🚨 URGENT: Voting date for your area has been CHANGED to tomorrow. Spread this to all voters. This is official.',
+      text: 'ðŸš¨ URGENT: Voting date for your area has been CHANGED to tomorrow. Spread this to all voters. This is official.',
       type: 'FAKE',
       explanation:
         'ECI never changes voting dates via WhatsApp. Verify at eci.gov.in.',
     },
     {
       id: 2,
-      text: '⚠️ Breaking: EVMs in 5 states found pre-loaded with votes. Supreme Court ordered re-election. Forward urgently.',
+      text: 'âš ï¸ Breaking: EVMs in 5 states found pre-loaded with votes. Supreme Court ordered re-election. Forward urgently.',
       type: 'FAKE',
       explanation:
         'No such Supreme Court order exists. Common misinformation pattern.',
@@ -64,7 +63,7 @@ const FakeNews = () => {
     return 'SUSPICIOUS';
   };
 
-  // Helper: risk level → colour classes
+  // Helper: risk level â†’ colour classes
   const getRiskColors = (riskLevel) => {
     if (riskLevel === 'SAFE')
       return {
@@ -105,7 +104,7 @@ const FakeNews = () => {
     try {
       const result = await detectFakeNewsCloud(customInput);
 
-      // ✅ Normalize response — handles both old and new Gemini response shapes
+      // âœ… Normalize response â€” handles both old and new Gemini response shapes
       const riskLevel = getRiskLevel(result.verdict || result.riskLevel);
       const trustScore =
         typeof result.score === 'number'
@@ -149,7 +148,7 @@ const FakeNews = () => {
         </p>
       </div>
 
-      {/* ── Phase 1: Swipe Challenge ── */}
+      {/* â”€â”€ Phase 1: Swipe Challenge â”€â”€ */}
       {phase === 1 && (
         <div
           className="card max-w-lg mx-auto animate-fadeIn"
@@ -190,7 +189,7 @@ const FakeNews = () => {
                   onClick={() => handleSwipe('FAKE')}
                   aria-label="Mark as Fake"
                 >
-                  FAKE 👎
+                  FAKE ðŸ‘Ž
                 </button>
                 <button
                   type="button"
@@ -198,7 +197,7 @@ const FakeNews = () => {
                   onClick={() => handleSwipe('REAL')}
                   aria-label="Mark as Real"
                 >
-                  REAL 👍
+                  REAL ðŸ‘
                 </button>
               </div>
             </div>
@@ -207,7 +206,7 @@ const FakeNews = () => {
               <div
                 className={`p-4 rounded-radius text-center font-bold text-lg ${swipeFeedback.isCorrect ? 'text-green-600' : 'text-red-600'}`}
               >
-                {swipeFeedback.isCorrect ? '✓ Correct!' : '✗ Incorrect'}
+                {swipeFeedback.isCorrect ? 'âœ“ Correct!' : 'âœ— Incorrect'}
               </div>
               <p className="text-sm text-center italic">
                 {swipeFeedback.explanation}
@@ -219,14 +218,14 @@ const FakeNews = () => {
               >
                 {currentSwipe === swipes.length - 1
                   ? 'Go to Custom AI Scanner'
-                  : 'Next Message →'}
+                  : 'Next Message â†’'}
               </button>
             </div>
           )}
         </div>
       )}
 
-      {/* ── Phase 2: Custom AI Scanner ── */}
+      {/* â”€â”€ Phase 2: Custom AI Scanner â”€â”€ */}
       {phase === 2 && (
         <div
           className="card max-w-2xl mx-auto animate-fadeIn"
@@ -246,7 +245,7 @@ const FakeNews = () => {
             <textarea
               id="news-input"
               className="input-control min-h-[120px] focus:ring-2 focus:ring-blue-main"
-              placeholder="Example: 🚨 Breaking - Voting dates have been changed by official order..."
+              placeholder="Example: ðŸš¨ Breaking - Voting dates have been changed by official order..."
               maxLength={2000}
               value={customInput}
               onChange={(e) => setCustomInput(e.target.value)}
@@ -269,7 +268,7 @@ const FakeNews = () => {
             </button>
           </div>
 
-          {/* ✅ Error message — no more alert() popup */}
+          {/* âœ… Error message â€” no more alert() popup */}
           {analysisError && (
             <div
               className="mt-4 p-4 bg-red-50 border border-red-200 rounded-radius text-red-700 text-sm flex items-center gap-2"
@@ -282,7 +281,7 @@ const FakeNews = () => {
             </div>
           )}
 
-          {/* ── Analysis Result ── */}
+          {/* â”€â”€ Analysis Result â”€â”€ */}
           <div aria-live="polite">
             {analysisResult &&
               (() => {
@@ -368,8 +367,5 @@ const FakeNews = () => {
   );
 };
 
-FakeNews.propTypes = {
-  // Fake news page props
-};
 
 export default FakeNews;

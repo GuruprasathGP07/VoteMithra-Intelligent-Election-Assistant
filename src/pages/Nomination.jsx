@@ -1,5 +1,4 @@
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+﻿import { Link } from 'react-router-dom';
 import { ROUTES } from '../utils/constants';
 
 const steps = [
@@ -9,7 +8,7 @@ const steps = [
   },
   {
     title: 'Security Deposit',
-    desc: 'Candidates must deposit ₹25,000 for General and ₹12,500 for SC/ST seats.',
+    desc: 'Candidates must deposit â‚¹25,000 for General and â‚¹12,500 for SC/ST seats.',
   },
   {
     title: 'Submission',
@@ -110,8 +109,5 @@ const Nomination = () => {
   );
 };
 
-Nomination.propTypes = {
-  // Nomination page props
-};
 
 export default Nomination;
